@@ -1,12 +1,11 @@
 package com.example.jetpackloading
 
+import CircularPulsatingIndicator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,7 +56,14 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.width(50.dp))
 
         GridPulsatingDot(color = Color.White, rowCount = 3, colCount = 3)
+
+        Spacer(modifier = Modifier.width(50.dp))
+
+        CircularPulsatingIndicator(color = Color.White)
     }
+
+    Spacer(modifier = Modifier.height(20.dp))
+
 }
 
 @Preview(showBackground = true)
