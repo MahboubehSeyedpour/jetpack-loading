@@ -4,6 +4,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -45,17 +46,18 @@ fun CircularPulsatingIndicator(
             repeatMode = RepeatMode.Restart
         )
     )
-
-    CircularProgressIndicator(
-        modifier = Modifier
-            .size(size.dp)
-            .graphicsLayer(
-                scaleX = size / initialValue,
-                scaleY = size / initialValue,
-                rotationZ = rotationAngle
-            ),
-        color = color,
-        progress = progress,
-        strokeWidth = strokeWidth
-    )
+    Box {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(size.dp)
+                .graphicsLayer(
+                    scaleX = size / initialValue,
+                    scaleY = size / initialValue,
+                    rotationZ = rotationAngle
+                ),
+            color = color,
+            progress = progress,
+            strokeWidth = strokeWidth
+        )
+    }
 }
