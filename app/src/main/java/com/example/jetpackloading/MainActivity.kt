@@ -6,9 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -35,7 +37,14 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(background)
+                            .padding(vertical = 40.dp, horizontal = 10.dp)
+                    ) {
+                        Greeting("Android")
+                    }
                 }
             }
         }
@@ -44,25 +53,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(background)
-            .padding(40.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
-    ) {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
         PulsatingDot(color = Color.White)
-
-        Spacer(modifier = Modifier.width(50.dp))
-
         GridPulsatingDot(color = Color.White, rowCount = 3, colCount = 3)
-
-        Spacer(modifier = Modifier.width(50.dp))
-
+        CircularPulsatingIndicator(color = Color.White)
         CircularPulsatingIndicator(color = Color.White)
     }
 
-    Spacer(modifier = Modifier.height(20.dp))
+    Spacer(modifier = Modifier.height(100.dp))
+
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+        PulsatingDot(color = Color.White)
+        GridPulsatingDot(color = Color.White, rowCount = 3, colCount = 3)
+        CircularPulsatingIndicator(color = Color.White)
+    }
 
 }
 
