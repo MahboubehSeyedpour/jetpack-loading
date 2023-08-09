@@ -21,14 +21,18 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
+import com.example.jetpackloading.DOTS_COUNT
+import com.example.jetpackloading.DOT_SIZE
+import com.example.jetpackloading.PULSE_DELAY
 
 @Composable
 fun GridPulsatingDot(
-    color: Color,
-    dotSize: Dp = 10.dp,
-    pulseDelay: Int = 300,
-    rowCount: Int = 3,
-    colCount: Int = 3
+    color: Color = ANIMATION_DEFAULT_COLOR,
+    dotSize: Dp = DOT_SIZE,
+    pulseDelay: Int = PULSE_DELAY,
+    rowCount: Int = DOTS_COUNT,
+    colCount: Int = DOTS_COUNT
 ) {
     val infiniteTransition = rememberInfiniteTransition()
 
