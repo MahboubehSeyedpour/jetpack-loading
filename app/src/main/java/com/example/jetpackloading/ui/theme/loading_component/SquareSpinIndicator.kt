@@ -22,9 +22,9 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
-import com.example.jetpackloading.SQUARE_Animation_DELAY
+import com.example.jetpackloading.SQUARE_ANIMATION_DELAY
 import com.example.jetpackloading.SQUARE_SIZE
-import com.example.jetpackloading.enums.CardFace
+import com.example.jetpackloading.enums.SquareCardFace
 import com.example.jetpackloading.enums.RotationAxis
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -33,30 +33,30 @@ import kotlinx.coroutines.launch
 fun SquareSpinIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     size: Dp = SQUARE_SIZE,
-    animationDelay: Int = SQUARE_Animation_DELAY
+    animationDelay: Int = SQUARE_ANIMATION_DELAY
 ) {
 
-    var cardFace by remember { mutableStateOf(CardFace.AxisX) }
+    var squareCardFace by remember { mutableStateOf(SquareCardFace.AxisX) }
     var axis by remember { mutableStateOf(RotationAxis.AxisX) }
     val transition = rememberInfiniteTransition()
     val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(cardFace) {
-        axis = cardFace.axis
+    LaunchedEffect(squareCardFace) {
+        axis = squareCardFace.axis
     }
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             while (true) {
                 delay(animationDelay.toLong())
-                cardFace = cardFace.next
+                squareCardFace = squareCardFace.next
             }
         }
     }
 
     val rotation by transition.animateFloat(
         initialValue = 0f,
-        targetValue = cardFace.angle,
+        targetValue = squareCardFace.angle,
         animationSpec = infiniteRepeatable(
             tween(
                 durationMillis = animationDelay,

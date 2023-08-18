@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 // ------------------------------------- global values ---------------------------------------------
 // dimens
 val rowWidth: Dp = 400.dp
-val rowHeight: Dp = 60.dp
+val rowHeight: Dp = 50.dp
 
 // color
 val ANIMATION_DEFAULT_COLOR = Color.White
@@ -29,4 +29,7 @@ val DOT_SIZE: Dp = 10.dp
 
 // SquareSpinIndicator
 val SQUARE_SIZE: Dp = 30.dp
-const val SQUARE_Animation_DELAY: Int = 500 // in milliseconds
+const val SQUARE_ANIMATION_DELAY: Int = 850 // in milliseconds
+
+// TriangleSpinIndicator
+const val TRIANGLE_ANIMATION_DELAY: Int = 850 // in milliseconds

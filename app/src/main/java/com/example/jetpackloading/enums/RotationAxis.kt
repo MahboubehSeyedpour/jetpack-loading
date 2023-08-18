@@ -1,5 +1,5 @@
 package com.example.jetpackloading.enums
 
 enum class RotationAxis {
-    AxisX, AxisY,
+    AxisX, AxisY, AAxisY, AAxisX
 }

@@ -8,9 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +22,7 @@ import com.example.jetpackloading.ui.theme.background
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.SquareSpinIndicator
+import com.example.jetpackloading.ui.theme.loading_component.TriangleSpinIndicator
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,14 +35,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(background)
-                            .padding(vertical = 40.dp, horizontal = 10.dp)
-                    ) {
-                        Greeting()
-                    }
+                    Greeting()
                 }
             }
         }
@@ -52,23 +44,74 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting() {
-    Row(
-        modifier = Modifier.size(width = rowWidth, height = rowHeight),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(background)
+            .padding(vertical = 40.dp, horizontal = 10.dp),
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        PulsatingDot()
-        GridPulsatingDot()
-        CircularPulsatingIndicator()
-    }
+        // ------------------ Row #1 ----------------------
+        Row(
+            modifier = Modifier.size(width = rowWidth, height = rowHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            PulsatingDot()
+            GridPulsatingDot()
+            CircularPulsatingIndicator()
+        }
 
-    Spacer(modifier = Modifier.height(100.dp))
+        // ------------------ Row #2 ----------------------
+        Row(
+            modifier = Modifier.size(width = rowWidth, height = rowHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            SquareSpinIndicator()
+        }
 
-    Row(
-        modifier = Modifier.size(width = rowWidth, height = rowHeight),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        SquareSpinIndicator()
+        // ------------------ Row #3 ----------------------
+        Row(
+            modifier = Modifier.size(width = rowWidth, height = rowHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+        }
+
+        // ------------------ Row #4 ----------------------
+        Row(
+            modifier = Modifier.size(width = rowWidth, height = rowHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+        }
+
+        // ------------------ Row #5 ----------------------
+        Row(
+            modifier = Modifier
+                .size(width = rowWidth, height = rowHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+        }
+
+        // ------------------ Row #6 ----------------------
+        Row(
+            modifier = Modifier
+                .size(width = rowWidth, height = rowHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+        }
+
+        // ------------------ Row #7 ----------------------
+        Row(
+            modifier = Modifier.size(width = rowWidth, height = rowHeight),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TriangleSpinIndicator()
+        }
     }
 }

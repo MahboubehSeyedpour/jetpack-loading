@@ -1,14 +1,14 @@
 package com.example.jetpackloading.enums
 
-enum class CardFace(val angle: Float, val axis: RotationAxis) {
+enum class SquareCardFace(val angle: Float, val axis: RotationAxis) {
     AxisX(angle = 180f, axis = RotationAxis.AxisX) {
-        override val next: CardFace
+        override val next: SquareCardFace
             get() = AxisY
     },
     AxisY(angle = 180f, axis = RotationAxis.AxisY) {
-        override val next: CardFace
+        override val next: SquareCardFace
             get() = AxisX
     };
 
-    abstract val next: CardFace
+    abstract val next: SquareCardFace
 }
