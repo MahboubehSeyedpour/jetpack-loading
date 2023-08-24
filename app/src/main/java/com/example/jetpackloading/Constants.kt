@@ -33,3 +33,6 @@ const val SQUARE_ANIMATION_DELAY: Int = 850 // in milliseconds
 
 // TriangleSpinIndicator
 const val TRIANGLE_ANIMATION_DELAY: Int = 850 // in milliseconds
+
+// BallPulseRiseIndicator
+val Ball_SIZE: Dp = 80.dp
