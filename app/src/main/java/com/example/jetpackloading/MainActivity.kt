@@ -22,6 +22,7 @@ import com.example.jetpackloading.ui.theme.background
 import com.example.jetpackloading.ui.theme.loading_component.BallPulseRiseIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
+import com.example.jetpackloading.ui.theme.loading_component.SemiCircleSpinIndicator
 import com.example.jetpackloading.ui.theme.loading_component.SquareSpinIndicator
 import com.example.jetpackloading.ui.theme.loading_component.TriangleSpinIndicator
 
@@ -114,6 +115,7 @@ fun Greeting() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             TriangleSpinIndicator()
+            SemiCircleSpinIndicator()
         }
     }
 }
