@@ -41,7 +41,6 @@ fun SemiCircleSpinIndicator(
                 cameraDistance = 12f * density
             }
     ) {
-
         drawArc(color)
     }
 }
