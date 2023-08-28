@@ -9,16 +9,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.background
+import com.example.jetpackloading.ui.theme.loading_component.BallClipRotatePulseIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallPulseRiseIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
@@ -50,8 +49,7 @@ fun Greeting() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(background)
-            .padding(vertical = 40.dp, horizontal = 10.dp),
+            .background(background),
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         // ------------------ Row #1 ----------------------
@@ -63,6 +61,7 @@ fun Greeting() {
             PulsatingDot()
             GridPulsatingDot()
             CircularPulsatingIndicator()
+            BallClipRotatePulseIndicator()
         }
 
         // ------------------ Row #2 ----------------------
