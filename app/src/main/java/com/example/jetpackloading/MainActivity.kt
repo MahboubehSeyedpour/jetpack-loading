@@ -21,6 +21,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallClipRotateMulti
 import com.example.jetpackloading.ui.theme.loading_component.BallClipRotatePulseIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallGridBeatIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallPulseRiseIndicator
+import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
@@ -109,6 +110,7 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            BallScaleRippleIndicator()
         }
 
         // ------------------ Row #7 ----------------------
