@@ -23,6 +23,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallGridBeatIndicat
 import com.example.jetpackloading.ui.theme.loading_component.BallPulseRiseIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndicator
+import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
@@ -113,6 +114,7 @@ fun Greeting() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             BallScaleRippleIndicator()
+            BallScaleRippleMultipleIndicator()
         }
 
         // ------------------ Row #7 ----------------------
