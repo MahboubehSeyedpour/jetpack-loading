@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.background
+import com.example.jetpackloading.ui.theme.loading_component.BallBeatIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallClipRotateMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallClipRotatePulseIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallGridBeatIndicator
@@ -108,6 +109,7 @@ fun Greeting() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             BallPulseSyncIndicator()
+            BallBeatIndicator()
         }
 
         // ------------------ Row #6 ----------------------
