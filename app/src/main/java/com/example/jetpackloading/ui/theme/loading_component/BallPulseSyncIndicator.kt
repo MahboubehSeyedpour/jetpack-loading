@@ -24,7 +24,7 @@ import kotlinx.coroutines.delay
 fun BallPulseSyncIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     ballCount: Int = 3,
-    delay: Long = 100L
+    delay: Long = 90L
 ) {
 
     val animationValues = (1..ballCount).map { index ->
