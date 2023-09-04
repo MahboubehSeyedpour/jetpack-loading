@@ -14,7 +14,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
@@ -36,9 +38,9 @@ fun BallPulseSyncIndicator(
 
             animate(
                 initialValue = 0f,
-                targetValue = 12f,
+                targetValue = 18f,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = 300),
+                    animation = tween(durationMillis = 350),
                     repeatMode = RepeatMode.Reverse,
                 )
             ) { value, _ -> animatedValue = value }
@@ -47,12 +49,13 @@ fun BallPulseSyncIndicator(
         animatedValue
     }
 
-    Row {
+    Row(modifier = Modifier, verticalAlignment = Alignment.CenterVertically) {
         for (animatedValue in animationValues) {
             Canvas(
                 modifier = Modifier
                     .padding(horizontal = 10.dp)
-                    .offset(y = animatedValue.dp),
+                    .offset(y = animatedValue.dp)
+                    .padding(bottom = 48.dp),
             ) {
                 drawCircle(
                     color = color,
