@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.background
+import com.example.jetpackloading.ui.theme.loading_component.AnimationType
 import com.example.jetpackloading.ui.theme.loading_component.BallBeatIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallClipRotateMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallClipRotatePulseIndicator
@@ -27,6 +28,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallScaleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMultipleIndicator
+import com.example.jetpackloading.ui.theme.loading_component.BallSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
@@ -121,6 +123,7 @@ fun Greeting() {
         ) {
             BallScaleRippleIndicator()
             BallScaleRippleMultipleIndicator()
+            BallSpinFadeLoaderIndicator(animationType = AnimationType.CIRCULAR)
         }
 
         // ------------------ Row #7 ----------------------
