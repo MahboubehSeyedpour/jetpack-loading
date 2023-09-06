@@ -17,6 +17,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.jetpackloading.enums.PunchType
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.background
 import com.example.jetpackloading.ui.theme.loading_component.BallBeatIndicator
@@ -31,6 +32,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndi
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
+import com.example.jetpackloading.ui.theme.loading_component.LineScaleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.LineSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
@@ -101,6 +103,7 @@ fun Greeting() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             BallScaleIndicator()
+            LineScaleIndicator(punchType = PunchType.ACCORDION_PUNCH)
             BallScaleMultipleIndicator()
         }
 
