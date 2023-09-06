@@ -35,7 +35,6 @@ fun BallScaleRippleIndicator(
     Box {
         Canvas(
             modifier = Modifier
-                .size(40.dp)
                 .scale(scale)
         ) {
             drawCircle(

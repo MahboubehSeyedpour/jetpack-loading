@@ -64,7 +64,6 @@ fun BallScaleRippleMultipleIndicator(
     Box {
         Canvas(
             modifier = Modifier
-                .size(40.dp)
                 .scale(scale1)
         ) {
             drawCircle(
@@ -75,7 +74,6 @@ fun BallScaleRippleMultipleIndicator(
         }
         Canvas(
             modifier = Modifier
-                .size(40.dp)
                 .scale(scale2)
         ) {
             drawCircle(
@@ -87,7 +85,6 @@ fun BallScaleRippleMultipleIndicator(
         }
         Canvas(
             modifier = Modifier
-                .size(40.dp)
                 .scale(scale3)
         ) {
             drawCircle(
@@ -99,7 +96,6 @@ fun BallScaleRippleMultipleIndicator(
         }
         Canvas(
             modifier = Modifier
-                .size(40.dp)
                 .scale(scale4)
         ) {
             drawCircle(
