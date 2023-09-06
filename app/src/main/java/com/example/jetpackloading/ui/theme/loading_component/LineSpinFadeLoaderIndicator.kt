@@ -5,7 +5,6 @@ import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -15,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 import com.example.jetpackloading.enums.AnimationType
 import kotlinx.coroutines.delay
@@ -22,21 +22,19 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun BallSpinFadeLoaderIndicator(
+fun LineSpinFadeLoaderIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
+    rectCount: Int = 8,
     animationType: AnimationType = AnimationType.CIRCULAR,
 ) {
 
-// -------------------------- ball parameters -----------------------
-    val radius = 70f
-    val ballCount = 8
-    val ballRadius = 12f
-    val angleStep = 360f / ballCount
-
+    val angleStep = 360f / rectCount
+    val outerRadius = 75f
+    val innerRadius = 55f
 
 
 // ------------------------ scale animation ---------------------
-    val animationValues = (1..ballCount).map { index ->
+    val animationValues = (1..rectCount).map { index ->
         var animatedValue: Float by remember { mutableStateOf(0f) }
         LaunchedEffect(key1 = Unit) {
 
@@ -72,20 +70,33 @@ fun BallSpinFadeLoaderIndicator(
     }
 
 
-
 // ----------------------------- UI --------------------------
+
     Canvas(
         modifier = Modifier
     ) {
+
         val center = Offset(size.width / 2, size.height / 2)
-        for (index in 0 until ballCount) {
+
+        for (index in 0 until rectCount) {
+
             val angle = index * angleStep
-            val x = center.x + radius * cos(Math.toRadians(angle.toDouble())).toFloat()
-            val y = center.y + radius * sin(Math.toRadians(angle.toDouble())).toFloat()
-            drawCircle(
+
+            val startX =
+                center.x + innerRadius * cos(Math.toRadians(angle.toDouble())).toFloat()
+            val startY =
+                center.y + innerRadius * sin(Math.toRadians(angle.toDouble())).toFloat()
+
+            val endX = center.x + outerRadius * cos(Math.toRadians(angle.toDouble())).toFloat()
+            val endY = center.y + outerRadius * sin(Math.toRadians(angle.toDouble())).toFloat()
+
+            drawLine(
                 color = color,
-                radius = ballRadius * animationValues[index], // Apply the scale
-                center = Offset(x, y)
+                start = Offset(startX, startY),
+                end = Offset(endX, endY),
+                strokeWidth = 25f * animationValues[index],
+                alpha = animationValues[index],
+                cap = StrokeCap.Round,
             )
         }
     }
