@@ -6,7 +6,6 @@ import androidx.compose.ui.unit.dp
 
 // ------------------------------------- global values ---------------------------------------------
 // dimens
-val rowWidth: Dp = 400.dp
 val rowHeight: Dp = 50.dp
 
 // color
