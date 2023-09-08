@@ -27,8 +27,9 @@ fun LineScaleIndicator(
     punchType: PunchType = PunchType.SYMMETRIC_PUNCH
 ) {
 
-    val xStep = 40f
+    val xStep = 30f
     val lineHeight = 100
+    val delay = 500
 
     val scales: List<Float> = (0 until rectCount).map { index ->
         var scale by remember { mutableStateOf(0f) }
@@ -36,14 +37,14 @@ fun LineScaleIndicator(
         LaunchedEffect(key1 = Unit) {
 
             if (punchType == PunchType.ACCORDION_PUNCH)
-                delay(100L * index)
+                delay(delay/5L * index)
 
             animate(
                 initialValue = 0.3f,
                 targetValue = 1.5f,
                 animationSpec = infiniteRepeatable(
                     animation = when (punchType) {
-                        PunchType.RANDOM_PUNCH -> tween(durationMillis = 500, delayMillis = 100 * index, easing = FastOutLinearInEasing)
+                        PunchType.RANDOM_PUNCH -> tween(durationMillis = delay, delayMillis = 50 * index, easing = FastOutLinearInEasing)
 
                         else -> tween(durationMillis = 600, easing = FastOutLinearInEasing)
                     },
@@ -62,7 +63,7 @@ fun LineScaleIndicator(
                 color = color,
                 start = Offset(index * xStep, -lineHeight / 2 * scales[index]),
                 end = Offset(index * xStep, lineHeight / 2 * scales[index]),
-                strokeWidth = 25f,
+                strokeWidth = 15f,
                 cap = StrokeCap.Square,
             )
         }
