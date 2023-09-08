@@ -42,7 +42,11 @@ fun LineScaleIndicator(
                 initialValue = 0.3f,
                 targetValue = 1.5f,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = 600, easing = FastOutLinearInEasing),
+                    animation = when (punchType) {
+                        PunchType.RANDOM_PUNCH -> tween(durationMillis = 500, delayMillis = 100 * index, easing = FastOutLinearInEasing)
+
+                        else -> tween(durationMillis = 600, easing = FastOutLinearInEasing)
+                    },
                     repeatMode = RepeatMode.Reverse,
                 ),
             ) { value, _ ->

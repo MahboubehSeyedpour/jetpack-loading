@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -67,7 +66,9 @@ fun Greeting() {
     ) {
         // ------------------ Row #1 ----------------------
         Row(
-            modifier = Modifier.height(rowHeight).fillMaxWidth(),
+            modifier = Modifier
+                .height(rowHeight)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -79,7 +80,9 @@ fun Greeting() {
 
         // ------------------ Row #2 ----------------------
         Row(
-            modifier = Modifier.height(rowHeight).fillMaxWidth(),
+            modifier = Modifier
+                .height(rowHeight)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -90,7 +93,9 @@ fun Greeting() {
 
         // ------------------ Row #3 ----------------------
         Row(
-            modifier = Modifier.height(rowHeight).fillMaxWidth(),
+            modifier = Modifier
+                .height(rowHeight)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -98,18 +103,23 @@ fun Greeting() {
 
         // ------------------ Row #4 ----------------------
         Row(
-            modifier = Modifier.height(rowHeight).fillMaxWidth(),
+            modifier = Modifier
+                .height(rowHeight)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
             BallScaleIndicator()
             LineScaleIndicator(punchType = PunchType.ACCORDION_PUNCH)
+            LineScaleIndicator(punchType = PunchType.RANDOM_PUNCH)
             BallScaleMultipleIndicator()
         }
 
         // ------------------ Row #5 ----------------------
         Row(
-            modifier = Modifier.height(rowHeight).fillMaxWidth(),
+            modifier = Modifier
+                .height(rowHeight)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -119,7 +129,9 @@ fun Greeting() {
 
         // ------------------ Row #6 ----------------------
         Row(
-            modifier = Modifier.height(rowHeight).fillMaxWidth(),
+            modifier = Modifier
+                .height(rowHeight)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -131,7 +143,9 @@ fun Greeting() {
 
         // ------------------ Row #7 ----------------------
         Row(
-            modifier = Modifier.height(rowHeight).fillMaxWidth(),
+            modifier = Modifier
+                .height(rowHeight)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
