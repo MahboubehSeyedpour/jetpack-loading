@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 
 @Composable
-internal fun LineScalePartyIndicator(
+ fun LineScalePartyIndicator(
     color: Color,
     rectCount: Int
 ) {

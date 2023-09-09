@@ -14,6 +14,7 @@ fun LineScaleIndicator(
     when(punchType) {
         PunchType.RANDOM_PUNCH -> LineScalePartyIndicator(color, rectCount)
         PunchType.ACCORDION_PUNCH -> SimpleLineScaleIndicator(color, rectCount)
-        PunchType.PULSE_OUT_PUNCH -> LineScalePulseOutIndicator(color, rectCount)
+        PunchType.SYMMETRIC_PUNCH -> LineScalePulseOutIndicator(color, rectCount)
+        PunchType.PULSE_OUT_PUNCH -> LineScalePulseOutRapidIndicator(color, rectCount)
     }
 }

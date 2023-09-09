@@ -125,6 +125,7 @@ fun Greeting() {
         ) {
             BallPulseSyncIndicator()
             BallBeatIndicator()
+            LineScaleIndicator(punchType = PunchType.SYMMETRIC_PUNCH)
             LineScaleIndicator(punchType = PunchType.PULSE_OUT_PUNCH)
         }
 
