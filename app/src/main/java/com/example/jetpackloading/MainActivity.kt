@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.jetpackloading.enums.PunchType
+import com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator.LineScaleIndicator
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.background
 import com.example.jetpackloading.ui.theme.loading_component.BallBeatIndicator
@@ -31,7 +32,6 @@ import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndi
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
-import com.example.jetpackloading.ui.theme.loading_component.LineScaleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.LineSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
@@ -125,6 +125,7 @@ fun Greeting() {
         ) {
             BallPulseSyncIndicator()
             BallBeatIndicator()
+            LineScaleIndicator(punchType = PunchType.PULSE_OUT_PUNCH)
         }
 
         // ------------------ Row #6 ----------------------

@@ -1,6 +1,7 @@
-package com.example.jetpackloading.ui.theme.loading_component
+package com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator
 
 import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
@@ -16,15 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
-import com.example.jetpackloading.enums.PunchType
 import kotlinx.coroutines.delay
 
 @Composable
-fun LineScaleIndicator(
-    color: Color = ANIMATION_DEFAULT_COLOR,
-    rectCount: Int = 5,
-    punchType: PunchType = PunchType.SYMMETRIC_PUNCH
+internal fun SimpleLineScaleIndicator(
+    color: Color,
+    rectCount: Int
 ) {
 
     val xStep = 30f
@@ -36,18 +34,13 @@ fun LineScaleIndicator(
 
         LaunchedEffect(key1 = Unit) {
 
-            if (punchType == PunchType.ACCORDION_PUNCH)
-                delay(delay/5L * index)
+            delay(delay / 5L * index)
 
             animate(
                 initialValue = 0.3f,
                 targetValue = 1.5f,
                 animationSpec = infiniteRepeatable(
-                    animation = when (punchType) {
-                        PunchType.RANDOM_PUNCH -> tween(durationMillis = delay, delayMillis = 50 * index, easing = FastOutLinearInEasing)
-
-                        else -> tween(durationMillis = 600, easing = FastOutLinearInEasing)
-                    },
+                    animation = tween(durationMillis = 600, easing = LinearEasing),
                     repeatMode = RepeatMode.Reverse,
                 ),
             ) { value, _ ->
