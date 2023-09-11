@@ -36,6 +36,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallScaleMultipleIn
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallSpinFadeLoaderIndicator
+import com.example.jetpackloading.ui.theme.loading_component.BallZigZagIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.LineSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
@@ -77,15 +78,10 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Divider(Modifier.height(50.dp).width(1.dp))
             PulsatingDot()
-            Divider(Modifier.height(50.dp).width(1.dp))
             GridPulsatingDot()
-            Divider(Modifier.height(50.dp).width(1.dp))
             CircularPulsatingIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallClipRotatePulseIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
         }
 
         // ------------------ Row #2 ----------------------
@@ -96,15 +92,10 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Divider(Modifier.height(50.dp).width(1.dp))
             SquareSpinIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallClipRotateMultipleIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallPulseRiseIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallRotateIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
         }
 
         // ------------------ Row #3 ----------------------
@@ -115,6 +106,7 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            BallZigZagIndicator()
         }
 
         // ------------------ Row #4 ----------------------
@@ -125,15 +117,10 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallScaleIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             LineScaleIndicator(punchType = PunchType.ACCORDION_PUNCH)
-            Divider(Modifier.height(50.dp).width(1.dp))
             LineScaleIndicator(punchType = PunchType.RANDOM_PUNCH)
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallScaleMultipleIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
         }
 
         // ------------------ Row #5 ----------------------
@@ -144,15 +131,10 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallPulseSyncIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallBeatIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             LineScaleIndicator(punchType = PunchType.SYMMETRIC_PUNCH)
-            Divider(Modifier.height(50.dp).width(1.dp))
             LineScaleIndicator(punchType = PunchType.PULSE_OUT_PUNCH)
-            Divider(Modifier.height(50.dp).width(1.dp))
         }
 
         // ------------------ Row #6 ----------------------
@@ -163,15 +145,10 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallScaleRippleIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallScaleRippleMultipleIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallSpinFadeLoaderIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             LineSpinFadeLoaderIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
         }
 
         // ------------------ Row #7 ----------------------
@@ -182,15 +159,10 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Divider(Modifier.height(50.dp).width(1.dp))
             TriangleSpinIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             PacmanIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             BallGridBeatIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
             SemiCircleSpinIndicator()
-            Divider(Modifier.height(50.dp).width(1.dp))
         }
     }
 }
