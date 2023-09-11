@@ -38,6 +38,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMult
 import com.example.jetpackloading.ui.theme.loading_component.BallSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallZigZagDeflectIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallZigZagIndicator
+import com.example.jetpackloading.ui.theme.loading_component.CubeTransitionIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.LineSpinFadeLoaderIndicator
 import com.example.jetpackloading.ui.theme.loading_component.PacmanIndicator
@@ -107,6 +108,7 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            CubeTransitionIndicator()
             BallZigZagIndicator()
             BallZigZagDeflectIndicator()
         }
