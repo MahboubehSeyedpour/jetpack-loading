@@ -36,6 +36,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallScaleMultipleIn
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallSpinFadeLoaderIndicator
+import com.example.jetpackloading.ui.theme.loading_component.BallTrianglePathIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallZigZagDeflectIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallZigZagIndicator
 import com.example.jetpackloading.ui.theme.loading_component.CubeTransitionIndicator
@@ -111,6 +112,7 @@ fun Greeting() {
             CubeTransitionIndicator()
             BallZigZagIndicator()
             BallZigZagDeflectIndicator()
+            BallTrianglePathIndicator()
         }
 
         // ------------------ Row #4 ----------------------
