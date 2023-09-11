@@ -36,6 +36,7 @@ import com.example.jetpackloading.ui.theme.loading_component.BallScaleMultipleIn
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallScaleRippleMultipleIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallSpinFadeLoaderIndicator
+import com.example.jetpackloading.ui.theme.loading_component.BallZigZagDeflectIndicator
 import com.example.jetpackloading.ui.theme.loading_component.BallZigZagIndicator
 import com.example.jetpackloading.ui.theme.loading_component.GridPulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.LineSpinFadeLoaderIndicator
@@ -107,6 +108,7 @@ fun Greeting() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             BallZigZagIndicator()
+            BallZigZagDeflectIndicator()
         }
 
         // ------------------ Row #4 ----------------------
