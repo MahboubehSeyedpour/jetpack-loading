@@ -2,64 +2,74 @@ package com.example.jetpackloading.ui.theme.loading_component
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
+import kotlinx.coroutines.delay
 
 @Composable
 fun BallGridBeatIndicator(
-    color: Color = ANIMATION_DEFAULT_COLOR
+    color: Color = ANIMATION_DEFAULT_COLOR,
+    ballDiameter: Float = 40f,
+    verticalSpace: Float = 70f,
+    horizontalSpace: Float = 70f,
+    rowCount: Int = 3,
+    columnCount: Int = 3,
+    minAlpha: Float = 0.2f,
+    maxAlpha: Float = 1f,
+    animationDuration: Int = 600
 ) {
 
-    val rowCount = 3
-    val colCount = 3
+    val totalBallsCount = columnCount * rowCount
 
-    @Composable
-    fun alpha(animationDelay: Int) = rememberInfiniteTransition().animateFloat(
-        initialValue = 0.5f, targetValue = 1f, animationSpec = infiniteRepeatable(
-            animation = keyframes {
-                durationMillis = animationDelay
-                0.6f at animationDelay / 4 with LinearEasing
-                0.8f at animationDelay / 2 with LinearEasing
-                1f at animationDelay
-            }, repeatMode = RepeatMode.Reverse
-        )
-    )
+    val alphas: List<Float> = (0 until totalBallsCount).map { index ->
+        var alpha by remember { mutableStateOf(maxAlpha) }
 
-    Column {
-        repeat(rowCount) { row ->
-            Row {
-                repeat(colCount) { col ->
-                    Dot(color, alpha = alpha(animationDelay = (row + col + colCount) * 120).value)
-                }
+        LaunchedEffect(key1 = Unit) {
+
+            delay(200L * index)
+
+            animate(
+                initialValue = minAlpha,
+                targetValue = maxAlpha,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(
+                        durationMillis = animationDuration,
+                        easing = LinearEasing
+                    ),
+                    repeatMode = RepeatMode.Reverse,
+                ),
+            ) { value, _ ->
+                alpha = value
+            }
+        }
+        alpha
+    }
+
+    Canvas(modifier = Modifier) {
+        for (row in 0 until rowCount) {
+            for (col in 0 until columnCount) {
+                drawCircle(
+                    color = color,
+                    radius = ballDiameter / 2,
+                    center = Offset(
+                        x = col * verticalSpace,
+                        y = row * horizontalSpace
+                    ),
+                    alpha = alphas[row * columnCount + col]
+                )
             }
         }
     }
-}
-
-@Composable
-fun Dot(color: Color, alpha: Float) {
-    Box(
-        Modifier
-            .padding(2.dp)
-            .alpha(alpha)
-            .background(
-                color = color, shape = CircleShape
-            )
-            .size(10.dp)
-    )
 }
