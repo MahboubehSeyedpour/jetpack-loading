@@ -26,16 +26,21 @@ fun LineSpinFadeLoaderIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     rectCount: Int = 8,
     animationType: AnimationType = AnimationType.CIRCULAR,
+    penThickness: Float = 25f,
+    radius: Float = 55f,
+    elementHeight: Float = 20f,
+    minAlpha: Float = 0.2f,
+    maxAlpha: Float = 1.0f
 ) {
 
     val angleStep = 360f / rectCount
-    val outerRadius = 75f
-    val innerRadius = 55f
+    val outerRadius = radius + elementHeight
+    val innerRadius = radius
 
 
 // ------------------------ scale animation ---------------------
-    val animationValues = (1..rectCount).map { index ->
-        var animatedValue: Float by remember { mutableStateOf(0f) }
+    val alphas = (1..rectCount).map { index ->
+        var alpha: Float by remember { mutableStateOf(minAlpha) }
         LaunchedEffect(key1 = Unit) {
 
             when (animationType) {
@@ -49,8 +54,8 @@ fun LineSpinFadeLoaderIndicator(
             }
 
             animate(
-                initialValue = 0.2f,
-                targetValue = 1f,
+                initialValue = minAlpha,
+                targetValue = maxAlpha,
                 animationSpec = infiniteRepeatable(
                     animation = when (animationType) {
                         AnimationType.CIRCULAR -> {
@@ -63,18 +68,16 @@ fun LineSpinFadeLoaderIndicator(
                     },
                     repeatMode = RepeatMode.Reverse,
                 )
-            ) { value, _ -> animatedValue = value }
+            ) { value, _ -> alpha = value }
         }
 
-        animatedValue
+        alpha
     }
 
 
 // ----------------------------- UI --------------------------
 
-    Canvas(
-        modifier = Modifier
-    ) {
+    Canvas(modifier = Modifier) {
 
         val center = Offset(size.width / 2, size.height / 2)
 
@@ -94,8 +97,8 @@ fun LineSpinFadeLoaderIndicator(
                 color = color,
                 start = Offset(startX, startY),
                 end = Offset(endX, endY),
-                strokeWidth = 25f * animationValues[index],
-                alpha = animationValues[index],
+                strokeWidth = penThickness * alphas[index],
+                alpha = alphas[index],
                 cap = StrokeCap.Round,
             )
         }
