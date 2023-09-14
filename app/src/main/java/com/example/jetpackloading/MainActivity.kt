@@ -8,20 +8,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.enums.PunchType
-import com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator.LineScaleIndicator
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.background
 import com.example.jetpackloading.ui.theme.loading_component.BallBeatIndicator
@@ -47,6 +44,7 @@ import com.example.jetpackloading.ui.theme.loading_component.PulsatingDot
 import com.example.jetpackloading.ui.theme.loading_component.SemiCircleSpinIndicator
 import com.example.jetpackloading.ui.theme.loading_component.SquareSpinIndicator
 import com.example.jetpackloading.ui.theme.loading_component.TriangleSpinIndicator
+import com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator.LineScaleIndicator
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +65,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting() {
+
+    // get screen height and width
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp.dp
+    val screenHeightDp = configuration.screenHeightDp.dp
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -168,7 +173,7 @@ fun Greeting() {
             TriangleSpinIndicator()
             PacmanIndicator()
             BallGridBeatIndicator()
-            SemiCircleSpinIndicator()
+            SemiCircleSpinIndicator(canvasSize = screenWidthDp / 9)
         }
     }
 }
