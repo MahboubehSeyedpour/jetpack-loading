@@ -22,15 +22,15 @@ import kotlinx.coroutines.delay
 fun BallGridBeatIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     ballDiameter: Float = 40f,
-    verticalSpace: Float = 70f,
-    horizontalSpace: Float = 70f,
-    rowCount: Int = 3,
-    columnCount: Int = 3,
+    verticalSpace: Float = 20f,
+    horizontalSpace: Float = 20f,
     minAlpha: Float = 0.2f,
     maxAlpha: Float = 1f,
     animationDuration: Int = 600
 ) {
 
+    val rowCount: Int = 3
+    val columnCount: Int = 3
     val totalBallsCount = columnCount * rowCount
 
     val alphas: List<Float> = (0 until totalBallsCount).map { index ->
@@ -58,14 +58,28 @@ fun BallGridBeatIndicator(
     }
 
     Canvas(modifier = Modifier) {
+        val center = Offset(size.width / 2, size.height / 2)
         for (row in 0 until rowCount) {
             for (col in 0 until columnCount) {
+
+                val xOffset = ballDiameter + horizontalSpace
+                val yOffset = ballDiameter + verticalSpace
+
                 drawCircle(
                     color = color,
                     radius = ballDiameter / 2,
                     center = Offset(
-                        x = col * verticalSpace,
-                        y = row * horizontalSpace
+                        x = when {
+                            col < columnCount / 2 -> -(center.x + xOffset)
+                            col == columnCount / 2 -> center.x
+                            else -> center.x + xOffset
+                        },
+                        y =
+                        when {
+                            row < rowCount / 2 -> -(center.y + yOffset)
+                            row == rowCount / 2 -> center.y
+                            else -> center.y + yOffset
+                        },
                     ),
                     alpha = alphas[row * columnCount + col]
                 )
