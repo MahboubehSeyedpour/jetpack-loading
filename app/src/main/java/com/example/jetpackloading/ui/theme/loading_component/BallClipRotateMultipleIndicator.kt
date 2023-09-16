@@ -25,6 +25,7 @@ import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 @Composable
 fun BallClipRotateMultipleIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
+    animationDuration: Int = 600
 ) {
 
 // ------------  Animations -----------------------
@@ -34,7 +35,7 @@ fun BallClipRotateMultipleIndicator(
         initialValue = 0F,
         targetValue = 180F,
         animationSpec = infiniteRepeatable(
-            animation = tween(600, easing = LinearEasing),
+            animation = tween(animationDuration, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
