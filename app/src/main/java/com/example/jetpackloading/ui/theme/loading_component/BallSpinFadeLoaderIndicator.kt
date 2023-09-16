@@ -25,15 +25,12 @@ import kotlin.math.sin
 fun BallSpinFadeLoaderIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     animationType: AnimationType = AnimationType.CIRCULAR,
+    radius: Float = 70f,
+    ballCount: Int = 8,
+    ballRadius: Float = 12f
 ) {
 
-// -------------------------- ball parameters -----------------------
-    val radius = 70f
-    val ballCount = 8
-    val ballRadius = 12f
     val angleStep = 360f / ballCount
-
-
 
 // ------------------------ scale animation ---------------------
     val animationValues = (1..ballCount).map { index ->
