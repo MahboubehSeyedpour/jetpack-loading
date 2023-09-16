@@ -17,26 +17,29 @@ import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 
 @Composable
 fun BallScaleRippleIndicator(
-    color: Color = ANIMATION_DEFAULT_COLOR
+    color: Color = ANIMATION_DEFAULT_COLOR,
+    minRadiusRatio: Float = 0f,
+    maxRadiusRatio: Float = 2.2f,
+    radius: Float = 35f,
+    penThickness: Float = 5f,
+    animationDuration: Int = 1100
 ) {
 
     val scale by rememberInfiniteTransition().animateFloat(
-        initialValue = 0f,
-        targetValue = 2.2f,
+        initialValue = minRadiusRatio,
+        targetValue = maxRadiusRatio,
         animationSpec = infiniteRepeatable(
-            animation = tween(1100, easing = LinearEasing),
+            animation = tween(animationDuration, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
 
     Box {
-        Canvas(
-            modifier = Modifier
-        ) {
+        Canvas(modifier = Modifier) {
             drawCircle(
                 color = color,
-                radius = 35f * scale,
-                style = Stroke(width = 5f)
+                radius = radius * scale,
+                style = Stroke(width = penThickness)
             )
         }
     }
