@@ -25,7 +25,10 @@ fun BallRotateIndicator(
     movingBalls: Int = 2,
     diameter: Float = 30f,
     spacing: Float = 60f,
-    duration: Int = 1000
+    animationDuration: Int = 1000,
+    minScale: Float = 0.4f,
+    maxScale: Float = 1.2f,
+    rotationCycleDelay: Int = 50
 ) {
 
     val transition = rememberInfiniteTransition()
@@ -35,21 +38,21 @@ fun BallRotateIndicator(
         targetValue = 360f,
         animationSpec = infiniteRepeatable(
             animation = keyframes {
-                durationMillis = duration
+                durationMillis = animationDuration
                 0f at 0 with FastOutLinearInEasing
-                180f at duration / 2 with LinearEasing
-                360f at duration with LinearOutSlowInEasing
-                delayMillis = 50
+                180f at animationDuration / 2 with LinearEasing
+                360f at animationDuration with LinearOutSlowInEasing
+                delayMillis = rotationCycleDelay
             },
             repeatMode = RepeatMode.Restart
         )
     )
 
     val scale by transition.animateFloat(
-        initialValue = 0.4f,
-        targetValue = 1.2f,
+        initialValue = minScale,
+        targetValue = maxScale,
         animationSpec = infiniteRepeatable(
-            animation = tween(duration / 2, easing = LinearEasing),
+            animation = tween(animationDuration / 2, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse
         )
     )
