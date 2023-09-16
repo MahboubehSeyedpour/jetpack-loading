@@ -15,23 +15,29 @@ import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 
 @Composable
 fun BallScaleIndicator(
-    color: Color = ANIMATION_DEFAULT_COLOR
+    color: Color = ANIMATION_DEFAULT_COLOR,
+    minAlpha: Float = 0f,
+    maxAlpha: Float = 0.3f,
+    minScale: Float = 0f,
+    maxScale: Float = 2.5f,
+    animationDuration: Int = 1100,
+    ballDiameter: Float = 70f
 ) {
 
     val alpha by rememberInfiniteTransition().animateFloat(
-        initialValue = 0f,
-        targetValue = 0.3f,
+        initialValue = minAlpha,
+        targetValue = maxAlpha,
         animationSpec = infiniteRepeatable(
-            animation = tween(550, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
+            animation = tween(animationDuration, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Restart
         )
     )
 
     val scale by rememberInfiniteTransition().animateFloat(
-        initialValue = 0f,
-        targetValue = 2.5f,
+        initialValue = minScale,
+        targetValue = maxScale,
         animationSpec = infiniteRepeatable(
-            animation = tween(1100, easing = FastOutSlowInEasing),
+            animation = tween(animationDuration, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Restart
         )
     )
@@ -39,7 +45,7 @@ fun BallScaleIndicator(
     Canvas(modifier = Modifier) {
         drawCircle(
             color = color,
-            radius = 35f * scale,
+            radius = (ballDiameter/2) * scale,
             alpha = alpha
         )
     }
