@@ -2,6 +2,7 @@ package com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 import com.example.jetpackloading.enums.PunchType
 
@@ -9,12 +10,62 @@ import com.example.jetpackloading.enums.PunchType
 fun LineScaleIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     rectCount: Int = 5,
-    punchType: PunchType
+    distanceOnXAxis: Float = 30f,
+    lineHeight: Int = 100,
+    animationDuration: Int = 500,
+    punchType: PunchType,
+    lineType: StrokeCap = StrokeCap.Round,
+    minScale: Float = 0.3f,
+    maxScale: Float = 1.5f,
+    penThickness: Float = 15f
 ) {
-    when(punchType) {
-        PunchType.RANDOM_PUNCH -> LineScalePartyIndicator(color, rectCount)
-        PunchType.ACCORDION_PUNCH -> SimpleLineScaleIndicator(color, rectCount)
-        PunchType.SYMMETRIC_PUNCH -> LineScalePulseOutIndicator(color, rectCount)
-        PunchType.PULSE_OUT_PUNCH -> LineScalePulseOutRapidIndicator(color, rectCount)
+    when (punchType) {
+        PunchType.RANDOM_PUNCH -> LineScalePartyIndicator(
+            color = color,
+            lineCount = rectCount,
+            lineHeight = lineHeight,
+            animationDuration = animationDuration,
+            penThickness = penThickness,
+            minScale = minScale,
+            maxScale = maxScale,
+            distanceOnXAxis = distanceOnXAxis,
+            lineType = lineType
+        )
+
+        PunchType.ACCORDION_PUNCH -> SimpleLineScaleIndicator(
+            color = color,
+            lineCount = rectCount,
+            lineHeight = lineHeight,
+            animationDuration = 600,
+            penThickness = penThickness,
+            minScale = minScale,
+            maxScale = maxScale,
+            distanceOnXAxis = distanceOnXAxis,
+            lineType = lineType
+        )
+
+        PunchType.SYMMETRIC_PUNCH -> LineScalePulseOutIndicator(
+            color = color,
+            lineCount = rectCount,
+            lineHeight = lineHeight,
+            animationDuration = animationDuration,
+            penThickness = penThickness,
+            minScale = minScale,
+            maxScale = maxScale,
+            distanceOnXAxis = distanceOnXAxis,
+            lineType = lineType
+        )
+
+        PunchType.PULSE_OUT_PUNCH -> LineScalePulseOutRapidIndicator(
+            color = color,
+            lineCount = rectCount,
+            distanceOnXAxis = distanceOnXAxis,
+            lineHeight = lineHeight,
+            animationDuration = animationDuration,
+            penThickness = penThickness,
+            minScale = minScale,
+            maxScale = maxScale,
+            lineType = lineType
+        )
     }
 }

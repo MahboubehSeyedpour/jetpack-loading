@@ -18,19 +18,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import com.example.jetpackloading.extension.mirror
 import kotlinx.coroutines.delay
+import kotlin.math.max
 
 @Composable
 fun LineScalePulseOutIndicator(
     color: Color,
-    rectCount: Int
+    lineCount: Int,
+    distanceOnXAxis: Float,
+    lineHeight: Int,
+    animationDuration: Int,
+    penThickness: Float,
+    minScale: Float,
+    maxScale: Float,
+    lineType: StrokeCap
 ) {
 
-    val xStep = 30f
-    val lineHeight = 100
-    val duration = 500
-
     var indexList = mutableListOf<Int>()
-    for (index in 0..rectCount / 2) {
+    for (index in 0..lineCount / 2) {
         indexList.add(index)
     }
     indexList = indexList.toList().mirror().toMutableList()
@@ -41,13 +45,13 @@ fun LineScalePulseOutIndicator(
 
         LaunchedEffect(key1 = Unit) {
 
-            delay(duration / 2L * index)
+            delay(animationDuration / 2L * index)
 
             animate(
-                initialValue = 0.3f,
-                targetValue = 1.5f,
+                initialValue = minScale,
+                targetValue = maxScale,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = duration, easing = FastOutLinearInEasing),
+                    animation = tween(durationMillis = animationDuration, easing = FastOutLinearInEasing),
                     repeatMode = RepeatMode.Reverse,
                 ),
             ) { value, _ ->
@@ -59,13 +63,13 @@ fun LineScalePulseOutIndicator(
 
 
     Canvas(modifier = Modifier) {
-        for (index in 0 until rectCount) {
+        for (index in 0 until lineCount) {
             drawLine(
                 color = color,
-                start = Offset(index * xStep, -lineHeight / 2 * scales[index]),
-                end = Offset(index * xStep, lineHeight / 2 * scales[index]),
-                strokeWidth = 15f,
-                cap = StrokeCap.Round,
+                start = Offset(index * distanceOnXAxis, -lineHeight / 2 * scales[index]),
+                end = Offset(index * distanceOnXAxis, lineHeight / 2 * scales[index]),
+                strokeWidth = penThickness,
+                cap = lineType,
             )
         }
     }

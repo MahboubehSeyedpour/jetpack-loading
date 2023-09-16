@@ -1,6 +1,7 @@
 package com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator
 
 import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
@@ -22,15 +23,18 @@ import kotlinx.coroutines.delay
 @Composable
 fun LineScalePulseOutRapidIndicator(
     color: Color,
-    rectCount: Int
+    lineCount: Int,
+    distanceOnXAxis: Float,
+    lineHeight: Int,
+    animationDuration: Int,
+    penThickness: Float,
+    minScale: Float,
+    maxScale: Float,
+    lineType: StrokeCap
 ) {
 
-    val xStep = 30f
-    val lineHeight = 100
-    val duration = 700
-
     var indexList = mutableListOf<Int>()
-    for (index in 0..rectCount / 2) {
+    for (index in 0..lineCount / 2) {
         indexList.add(index)
     }
     indexList = indexList.toList().asReversed().mirror().toMutableList()
@@ -41,13 +45,16 @@ fun LineScalePulseOutRapidIndicator(
 
         LaunchedEffect(key1 = Unit) {
 
-            delay(duration / rectCount.toLong() * index)
+            delay(index.times(2) * animationDuration / lineCount.toLong())
 
             animate(
-                initialValue = 0.3f,
-                targetValue = 1.5f,
+                initialValue = minScale,
+                targetValue = maxScale,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = duration, easing = FastOutLinearInEasing),
+                    animation = tween(
+                        durationMillis = animationDuration,
+                        easing = LinearEasing
+                    ),
                     repeatMode = RepeatMode.Reverse,
                 ),
             ) { value, _ ->
@@ -59,13 +66,13 @@ fun LineScalePulseOutRapidIndicator(
 
 
     Canvas(modifier = Modifier) {
-        for (index in 0 until rectCount) {
+        for (index in 0 until lineCount) {
             drawLine(
                 color = color,
-                start = Offset(index * xStep, -lineHeight / 2 * scales[index]),
-                end = Offset(index * xStep, lineHeight / 2 * scales[index]),
-                strokeWidth = 15f,
-                cap = StrokeCap.Round,
+                start = Offset(index * distanceOnXAxis, -lineHeight / 2 * scales[index]),
+                end = Offset(index * distanceOnXAxis, lineHeight / 2 * scales[index]),
+                strokeWidth = penThickness,
+                cap = lineType,
             )
         }
     }

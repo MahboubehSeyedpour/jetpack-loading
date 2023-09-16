@@ -18,25 +18,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 
 @Composable
- fun LineScalePartyIndicator(
+fun LineScalePartyIndicator(
     color: Color,
-    rectCount: Int
+    lineCount: Int,
+    distanceOnXAxis: Float,
+    lineHeight: Int,
+    animationDuration: Int,
+    penThickness: Float,
+    minScale: Float,
+    maxScale: Float,
+    lineType: StrokeCap
 ) {
-    val xStep = 30f
-    val lineHeight = 100
-    val delay = 500
 
-    val scales: List<Float> = (0 until rectCount).map { index ->
+    val scales: List<Float> = (0 until lineCount).map { index ->
         var scale by remember { mutableStateOf(0f) }
 
         LaunchedEffect(key1 = Unit) {
             animate(
-                initialValue = 0.3f,
-                targetValue = 1.5f,
+                initialValue = minScale,
+                targetValue = maxScale,
                 animationSpec = infiniteRepeatable(
                     animation = tween(
-                        durationMillis = delay,
-                        delayMillis = 50 * index,
+                        durationMillis = animationDuration,
+                        delayMillis = (animationDuration / 2) * index,
                         easing = FastOutLinearInEasing
                     ),
                     repeatMode = RepeatMode.Reverse,
@@ -49,13 +53,13 @@ import androidx.compose.ui.graphics.StrokeCap
     }
 
     Canvas(modifier = Modifier) {
-        for (index in 0 until rectCount) {
+        for (index in 0 until lineCount) {
             drawLine(
                 color = color,
-                start = Offset(index * xStep, -lineHeight / 2 * scales[index]),
-                end = Offset(index * xStep, lineHeight / 2 * scales[index]),
-                strokeWidth = 15f,
-                cap = StrokeCap.Square,
+                start = Offset(index * distanceOnXAxis, -lineHeight / 2 * scales[index]),
+                end = Offset(index * distanceOnXAxis, lineHeight / 2 * scales[index]),
+                strokeWidth = penThickness,
+                cap = lineType,
             )
         }
     }

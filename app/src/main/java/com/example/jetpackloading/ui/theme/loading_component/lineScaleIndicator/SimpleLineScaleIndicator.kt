@@ -1,6 +1,5 @@
 package com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator
 
-import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animate
@@ -22,25 +21,28 @@ import kotlinx.coroutines.delay
 @Composable
 fun SimpleLineScaleIndicator(
     color: Color,
-    rectCount: Int
+    lineCount: Int,
+    distanceOnXAxis: Float,
+    lineHeight: Int,
+    animationDuration: Int,
+    penThickness: Float,
+    minScale: Float,
+    maxScale: Float,
+    lineType: StrokeCap
 ) {
 
-    val xStep = 30f
-    val lineHeight = 100
-    val delay = 500
-
-    val scales: List<Float> = (0 until rectCount).map { index ->
-        var scale by remember { mutableStateOf(0f) }
+    val scales: List<Float> = (0 until lineCount).map { index ->
+        var scale by remember { mutableStateOf(minScale) }
 
         LaunchedEffect(key1 = Unit) {
 
-            delay(delay / 5L * index)
+            delay((animationDuration / lineCount.toLong()) * index)
 
             animate(
-                initialValue = 0.3f,
-                targetValue = 1.5f,
+                initialValue = minScale,
+                targetValue = maxScale,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = 600, easing = LinearEasing),
+                    animation = tween(durationMillis = animationDuration, easing = LinearEasing),
                     repeatMode = RepeatMode.Reverse,
                 ),
             ) { value, _ ->
@@ -51,13 +53,16 @@ fun SimpleLineScaleIndicator(
     }
 
     Canvas(modifier = Modifier) {
-        for (index in 0 until rectCount) {
+        for (index in 0 until lineCount) {
+
+            val yOffset = lineHeight / 2 * scales[index]
+
             drawLine(
                 color = color,
-                start = Offset(index * xStep, -lineHeight / 2 * scales[index]),
-                end = Offset(index * xStep, lineHeight / 2 * scales[index]),
-                strokeWidth = 15f,
-                cap = StrokeCap.Square,
+                start = Offset((index - lineCount/2) * distanceOnXAxis, -yOffset),
+                end = Offset((index - lineCount/2) * distanceOnXAxis, yOffset),
+                strokeWidth = penThickness,
+                cap = lineType,
             )
         }
     }
