@@ -6,77 +6,79 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.unit.Dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
-import com.example.jetpackloading.Ball_SIZE
-import com.example.jetpackloading.DOT_SIZE
 
 @Composable
 fun BallPulseRiseIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    dotSize: Dp = DOT_SIZE
+    ballDiameter: Float = 40f,
+    animationDuration: Int = 500,
+    verticalSpace: Float = 50f,
+    horizontalSpace: Float = 20f,
 ) {
 
-    val rotation by rememberInfiniteTransition().animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
+    val position by rememberInfiniteTransition().animateFloat(
+        initialValue = -verticalSpace,
+        targetValue = verticalSpace,
         animationSpec = infiniteRepeatable(
-            animation = tween(
-                durationMillis = 1800,
-                delayMillis = -1,
-                easing = LinearEasing
-            ),
-            repeatMode = RepeatMode.Restart
+            animation = tween(animationDuration, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
         )
     )
 
-    @Composable
-    fun Dot() = Spacer(
-        Modifier
-            .size(dotSize)
-            .background(color = color, shape = CircleShape)
-    )
+    Canvas(modifier = Modifier) {
 
-    Column(
-        modifier = Modifier
-            .size(Ball_SIZE)
-            .graphicsLayer {
-                rotationX = rotation
-            },
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+        // ----------------- first row
+        val xOffset = ballDiameter / 2 + horizontalSpace
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Dot()
-            Dot()
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Dot()
-            Dot()
-            Dot()
-        }
+        drawCircle(
+            color = color,
+            radius = ballDiameter / 2,
+            center = Offset(
+                x = center.x / 2 - xOffset,
+                y = center.y / 2 + position,
+            )
+        )
+        drawCircle(
+            color = color,
+            radius = ballDiameter / 2,
+            center = Offset(
+                x = center.x / 2 + xOffset,
+                y = center.y / 2 + position,
+            )
+        )
+
+
+        //------------ second row
+        drawCircle(
+            color = color,
+            radius = ballDiameter / 2,
+            center = Offset(
+                x = center.x / 2 - 2 * xOffset,
+                y = center.y / 2 - position,
+            )
+        )
+        drawCircle(
+            color = color,
+            radius = ballDiameter / 2,
+            center = Offset(
+                x = center.x / 2,
+                y = center.y / 2 - position,
+            )
+        )
+        drawCircle(
+            color = color,
+            radius = ballDiameter / 2,
+            center = Offset(
+                x = center.x / 2 + 2 * xOffset,
+                y = center.y / 2 - position,
+            )
+        )
     }
 }
