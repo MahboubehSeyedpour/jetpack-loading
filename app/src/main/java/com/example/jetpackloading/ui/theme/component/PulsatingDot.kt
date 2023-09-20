@@ -1,4 +1,4 @@
-package com.example.jetpackloading.ui.theme.loading_component
+package com.example.jetpackloading.ui.theme.component
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
@@ -7,7 +7,6 @@ import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -27,12 +26,11 @@ import com.example.jetpackloading.DOT_SIZE
 import com.example.jetpackloading.PULSE_DELAY
 
 @Composable
-fun GridPulsatingDot(
+fun PulsatingDot(
     color: Color = ANIMATION_DEFAULT_COLOR,
     dotSize: Dp = DOT_SIZE,
     pulseDelay: Int = PULSE_DELAY,
-    rowCount: Int = DOTS_COUNT,
-    colCount: Int = DOTS_COUNT
+    dotsCount: Int = DOTS_COUNT
 ) {
     val infiniteTransition = rememberInfiniteTransition()
 
@@ -65,25 +63,19 @@ fun GridPulsatingDot(
 
     val dots: MutableList<State<Float>> = mutableListOf()
 
-    for (rowIndex in 0 until rowCount) {
-        for (colIndex in 0 until colCount) {
-            dots.add(PulsatingDotWithDelay(delay = (pulseDelay * (rowIndex * colCount + colIndex) * 0.3).toInt()))
-        }
+    for (i in 0 until dotsCount) {
+        dots.add(PulsatingDotWithDelay(delay = pulseDelay * i))
     }
 
-    Column {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
         val spaceSize = 2.dp
-        for (rowIndex in 0 until rowCount) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                for (colIndex in 0 until colCount) {
-                    val flatListIndex = rowIndex * colCount + colIndex
-                    Dot(dots[flatListIndex].value)
-                    Spacer(Modifier.width(spaceSize))
-                }
-            }
+
+        dots.forEach { state ->
+            Dot(state.value)
+            Spacer(Modifier.width(spaceSize))
         }
     }
 }

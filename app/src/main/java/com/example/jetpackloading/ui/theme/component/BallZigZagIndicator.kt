@@ -1,4 +1,4 @@
-package com.example.jetpackloading.ui.theme.loading_component
+package com.example.jetpackloading.ui.theme.component
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode

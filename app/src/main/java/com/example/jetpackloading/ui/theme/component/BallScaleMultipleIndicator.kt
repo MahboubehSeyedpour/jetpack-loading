@@ -1,4 +1,4 @@
-package com.example.jetpackloading.ui.theme.loading_component
+package com.example.jetpackloading.ui.theme.component
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -13,60 +13,54 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 
 @Composable
-fun BallScaleRippleMultipleIndicator(
+fun BallScaleMultipleIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    duration: Int = 1500,
-    largerRadius: Float = 100f,
-    circleCount: Int = 2,
-    minAlpha: Float = 0.2f,
-    maxAlpha: Float = 1.0f,
+    largestBallDiameter: Float = 70f,
+    animationDuration: Int = 1500,
     minScale: Float = 0f,
-    maxScale: Float = 1.0f,
-    penThickness: Float = 3f,
-    repeatMode: RepeatMode = RepeatMode.Restart
+    maxScale: Float = 2.5f,
+    rippleCount: Int = 4,
+    alpha: Float = 0.3f
 ) {
 
-    val alphaSteps = (maxAlpha - minAlpha) / circleCount
 
-    val scales: List<Float> = (0 until circleCount).map { index ->
+    val smallestBallDiameter = largestBallDiameter / rippleCount
+    val diameterSteps = (largestBallDiameter - smallestBallDiameter) / rippleCount
+
+    val scales: List<Float> = (0 until rippleCount).map { index ->
         var scale by remember { mutableStateOf(minScale) }
 
         LaunchedEffect(key1 = Unit) {
+
             animate(
                 initialValue = minScale,
                 targetValue = maxScale,
                 animationSpec = infiniteRepeatable(
                     animation = tween(
-                        durationMillis = (circleCount - index) * duration / circleCount,
-                        delayMillis = duration - (circleCount - index) * duration / circleCount,
+                        durationMillis = (rippleCount - index) * animationDuration / rippleCount,
+                        delayMillis = index * animationDuration / rippleCount,
                         easing = LinearEasing
                     ),
-                    repeatMode = repeatMode,
+                    repeatMode = RepeatMode.Restart,
                 ),
-            ) { value, _ ->
-                scale = value
-            }
+            ) { value, _ -> scale = value }
         }
         scale
     }
 
-    Canvas(
-        modifier = Modifier
-    ) {
-        for (index in 0 until circleCount) {
-
-            val radius = (circleCount - index) * (largerRadius / circleCount)
-
+    Canvas(modifier = Modifier) {
+        for (index in 0 until rippleCount) {
+            val radius = (largestBallDiameter / 2) - (index * (diameterSteps / 2))
             drawCircle(
                 color = color,
+                center = Offset(size.width/2 + largestBallDiameter, size.height/2),
                 radius = radius * scales[index],
-                style = Stroke(width = penThickness),
-                alpha = maxAlpha - (index * alphaSteps)
+                alpha = alpha
             )
         }
     }

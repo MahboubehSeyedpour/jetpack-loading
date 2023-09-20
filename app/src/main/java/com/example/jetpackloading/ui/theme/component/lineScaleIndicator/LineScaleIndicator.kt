@@ -1,4 +1,4 @@
-package com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator
+package com.example.jetpackloading.ui.theme.component.lineScaleIndicator
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

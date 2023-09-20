@@ -1,7 +1,6 @@
-package com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator
+package com.example.jetpackloading.ui.theme.component.lineScaleIndicator
 
 import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
@@ -21,7 +20,7 @@ import com.example.jetpackloading.extension.mirror
 import kotlinx.coroutines.delay
 
 @Composable
-fun LineScalePulseOutRapidIndicator(
+fun LineScalePulseOutIndicator(
     color: Color,
     lineCount: Int,
     distanceOnXAxis: Float,
@@ -37,7 +36,7 @@ fun LineScalePulseOutRapidIndicator(
     for (index in 0..lineCount / 2) {
         indexList.add(index)
     }
-    indexList = indexList.toList().asReversed().mirror().toMutableList()
+    indexList = indexList.toList().mirror().toMutableList()
 
 
     val scales: List<Float> = indexList.map { index ->
@@ -45,16 +44,13 @@ fun LineScalePulseOutRapidIndicator(
 
         LaunchedEffect(key1 = Unit) {
 
-            delay(index.times(2) * animationDuration / lineCount.toLong())
+            delay(animationDuration / 2L * index)
 
             animate(
                 initialValue = minScale,
                 targetValue = maxScale,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(
-                        durationMillis = animationDuration,
-                        easing = LinearEasing
-                    ),
+                    animation = tween(durationMillis = animationDuration, easing = FastOutLinearInEasing),
                     repeatMode = RepeatMode.Reverse,
                 ),
             ) { value, _ ->

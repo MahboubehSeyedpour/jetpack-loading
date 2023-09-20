@@ -1,4 +1,4 @@
-package com.example.jetpackloading.ui.theme.loading_component
+package com.example.jetpackloading.ui.theme.component
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -19,32 +19,50 @@ import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 
 @Composable
-fun SemiCircleSpinIndicator(
+fun PacmanIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    startAngle: Float = -90f,
-    endAngle: Float = 270f,
-    sweepAngle: Float = 180f,
-    animationDuration: Int = 600,
+    ballDiameter: Float = 40f,
     canvasSize: Dp = 40.dp,
+    animationDuration: Int = 500
 ) {
 
-    val rotation by rememberInfiniteTransition().animateFloat(
-        initialValue = startAngle,
-        targetValue = endAngle,
+    val lipStart = 0f
+    val lipEnd = 45f
+
+    val positionAnimation by rememberInfiniteTransition().animateFloat(
+        initialValue = ballDiameter,
+        targetValue = -ballDiameter,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = animationDuration, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Restart
         )
     )
 
+    val lipAnimation by rememberInfiniteTransition().animateFloat(
+        initialValue = lipStart,
+        targetValue = lipEnd,
+        animationSpec = infiniteRepeatable(
+            animation = tween(animationDuration / 2, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
     Canvas(modifier = Modifier.size(canvasSize)) {
         drawArc(
             color = color,
-            startAngle = rotation,
-            sweepAngle = sweepAngle,
+            startAngle = lipAnimation,
+            sweepAngle = 360 - lipAnimation.times(2),
             topLeft = Offset(0f, 0f),
             size = Size(size.width, size.height),
             useCenter = true
+        )
+        drawCircle(
+            color = color,
+            radius = ballDiameter / 2,
+            center = Offset(
+                x = size.width + positionAnimation,
+                y = size.height / 2
+            )
         )
     }
 }

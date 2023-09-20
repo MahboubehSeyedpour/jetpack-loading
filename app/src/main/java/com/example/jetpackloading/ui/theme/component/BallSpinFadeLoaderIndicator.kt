@@ -1,4 +1,4 @@
-package com.example.jetpackloading.ui.theme.loading_component
+package com.example.jetpackloading.ui.theme.component
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animate
@@ -14,7 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 import com.example.jetpackloading.enums.AnimationType
 import kotlinx.coroutines.delay
@@ -22,25 +21,19 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun LineSpinFadeLoaderIndicator(
+fun BallSpinFadeLoaderIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    rectCount: Int = 8,
     animationType: AnimationType = AnimationType.CIRCULAR,
-    penThickness: Float = 25f,
-    radius: Float = 55f,
-    elementHeight: Float = 20f,
-    minAlpha: Float = 0.2f,
-    maxAlpha: Float = 1.0f
+    radius: Float = 70f,
+    ballCount: Int = 8,
+    ballRadius: Float = 12f
 ) {
 
-    val angleStep = 360f / rectCount
-    val outerRadius = radius + elementHeight
-    val innerRadius = radius
-
+    val angleStep = 360f / ballCount
 
 // ------------------------ scale animation ---------------------
-    val alphas = (1..rectCount).map { index ->
-        var alpha: Float by remember { mutableStateOf(minAlpha) }
+    val animationValues = (1..ballCount).map { index ->
+        var animatedValue: Float by remember { mutableStateOf(0f) }
         LaunchedEffect(key1 = Unit) {
 
             when (animationType) {
@@ -54,8 +47,8 @@ fun LineSpinFadeLoaderIndicator(
             }
 
             animate(
-                initialValue = minAlpha,
-                targetValue = maxAlpha,
+                initialValue = 0.2f,
+                targetValue = 1f,
                 animationSpec = infiniteRepeatable(
                     animation = when (animationType) {
                         AnimationType.CIRCULAR -> {
@@ -68,38 +61,27 @@ fun LineSpinFadeLoaderIndicator(
                     },
                     repeatMode = RepeatMode.Reverse,
                 )
-            ) { value, _ -> alpha = value }
+            ) { value, _ -> animatedValue = value }
         }
 
-        alpha
+        animatedValue
     }
 
 
+
 // ----------------------------- UI --------------------------
-
-    Canvas(modifier = Modifier) {
-
+    Canvas(
+        modifier = Modifier
+    ) {
         val center = Offset(size.width / 2, size.height / 2)
-
-        for (index in 0 until rectCount) {
-
+        for (index in 0 until ballCount) {
             val angle = index * angleStep
-
-            val startX =
-                center.x + innerRadius * cos(Math.toRadians(angle.toDouble())).toFloat()
-            val startY =
-                center.y + innerRadius * sin(Math.toRadians(angle.toDouble())).toFloat()
-
-            val endX = center.x + outerRadius * cos(Math.toRadians(angle.toDouble())).toFloat()
-            val endY = center.y + outerRadius * sin(Math.toRadians(angle.toDouble())).toFloat()
-
-            drawLine(
+            val x = center.x + radius * cos(Math.toRadians(angle.toDouble())).toFloat()
+            val y = center.y + radius * sin(Math.toRadians(angle.toDouble())).toFloat()
+            drawCircle(
                 color = color,
-                start = Offset(startX, startY),
-                end = Offset(endX, endY),
-                strokeWidth = penThickness * alphas[index],
-                alpha = alphas[index],
-                cap = StrokeCap.Round,
+                radius = ballRadius * animationValues[index], // Apply the scale
+                center = Offset(x, y)
             )
         }
     }

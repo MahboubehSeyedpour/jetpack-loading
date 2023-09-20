@@ -1,6 +1,6 @@
-package com.example.jetpackloading.ui.theme.loading_component.lineScaleIndicator
+package com.example.jetpackloading.ui.theme.component.lineScaleIndicator
 
-import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
@@ -16,10 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import kotlinx.coroutines.delay
 
 @Composable
-fun SimpleLineScaleIndicator(
+fun LineScalePartyIndicator(
     color: Color,
     lineCount: Int,
     distanceOnXAxis: Float,
@@ -32,17 +31,18 @@ fun SimpleLineScaleIndicator(
 ) {
 
     val scales: List<Float> = (0 until lineCount).map { index ->
-        var scale by remember { mutableStateOf(minScale) }
+        var scale by remember { mutableStateOf(0f) }
 
         LaunchedEffect(key1 = Unit) {
-
-            delay((animationDuration / lineCount.toLong()) * index)
-
             animate(
                 initialValue = minScale,
                 targetValue = maxScale,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = animationDuration, easing = LinearEasing),
+                    animation = tween(
+                        durationMillis = animationDuration,
+                        delayMillis = (animationDuration / 2) * index,
+                        easing = FastOutLinearInEasing
+                    ),
                     repeatMode = RepeatMode.Reverse,
                 ),
             ) { value, _ ->
@@ -54,13 +54,10 @@ fun SimpleLineScaleIndicator(
 
     Canvas(modifier = Modifier) {
         for (index in 0 until lineCount) {
-
-            val yOffset = lineHeight / 2 * scales[index]
-
             drawLine(
                 color = color,
-                start = Offset((index - lineCount/2) * distanceOnXAxis, -yOffset),
-                end = Offset((index - lineCount/2) * distanceOnXAxis, yOffset),
+                start = Offset(index * distanceOnXAxis, -lineHeight / 2 * scales[index]),
+                end = Offset(index * distanceOnXAxis, lineHeight / 2 * scales[index]),
                 strokeWidth = penThickness,
                 cap = lineType,
             )

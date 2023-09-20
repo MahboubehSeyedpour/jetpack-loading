@@ -1,12 +1,9 @@
-package com.example.jetpackloading.ui.theme.loading_component
+package com.example.jetpackloading.ui.theme.component
 
-import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -15,20 +12,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun BallRotateIndicator(
+fun BallTrianglePathIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    movingBalls: Int = 2,
-    diameter: Float = 30f,
-    spacing: Float = 60f,
-    animationDuration: Int = 1000,
-    minScale: Float = 0.4f,
-    maxScale: Float = 1.2f,
-    rotationCycleDelay: Int = 50
+    movingBalls: Int = 3,
+    diameter: Float = 40f,
+    spacing: Float = 80f,
+    duration: Int = 1000
 ) {
 
     val transition = rememberInfiniteTransition()
@@ -37,22 +32,16 @@ fun BallRotateIndicator(
         initialValue = 0f,
         targetValue = 360f,
         animationSpec = infiniteRepeatable(
-            animation = keyframes {
-                durationMillis = animationDuration
-                0f at 0 with FastOutLinearInEasing
-                180f at animationDuration / 2 with LinearEasing
-                360f at animationDuration with LinearOutSlowInEasing
-                delayMillis = rotationCycleDelay
-            },
+            animation = tween(duration * 2, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
 
-    val scale by transition.animateFloat(
-        initialValue = minScale,
-        targetValue = maxScale,
+    val spacingAnimation by transition.animateFloat(
+        initialValue = diameter,
+        targetValue = spacing,
         animationSpec = infiniteRepeatable(
-            animation = tween(animationDuration / 2, easing = LinearEasing),
+            animation = tween(duration / 2, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse
         )
     )
@@ -62,25 +51,17 @@ fun BallRotateIndicator(
         val center = Offset(x = size.width / 2, y = size.height / 2)
         val angleStep = 360f / movingBalls
 
-        drawCircle(
-            color = color,
-            radius = diameter / 2 * scale,
-            center = Offset(
-                x = center.x,
-                y = center.y
-            )
-        )
-
         for (index in 0 until movingBalls) {
 
             val angle = index * angleStep
 
             drawCircle(
                 color = color,
-                radius = diameter / 2 * scale,
+                radius = diameter / 2,
+                style = Stroke(width = 6f),
                 center = Offset(
-                    x = center.x + ((spacing) * cos(Math.toRadians((angle) + rotation.toDouble())).toFloat()),
-                    y = center.y + ((spacing) * sin(Math.toRadians((angle) + rotation.toDouble())).toFloat()),
+                    x = center.x + ((spacingAnimation) * cos(Math.toRadians((angle) + rotation.toDouble())).toFloat()),
+                    y = center.y + ((spacingAnimation) * sin(Math.toRadians((angle) + rotation.toDouble())).toFloat()),
                 )
             )
         }
