@@ -8,75 +8,99 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 
 @Composable
 fun BallClipRotatePulseIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
+    canvasSize: Float = 60f,
+    penThickness: Dp = 1.dp,
+    circleDiameter: Float = canvasSize / 2,
+    animationDuration: Int = 500
 ) {
 
     val transition = rememberInfiniteTransition()
 
     val rotation by transition.animateFloat(
-        initialValue = 0F,
-        targetValue = 180F,
-        animationSpec = infiniteRepeatable(
-            animation = tween(600, easing = LinearEasing),
+        initialValue = 0F, targetValue = 180F, animationSpec = infiniteRepeatable(
+            animation = tween(animationDuration * 2, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
 
     val scale by transition.animateFloat(
-        initialValue = 0.5f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(500, easing = FastOutSlowInEasing),
+        initialValue = 0.5f, targetValue = 1f, animationSpec = infiniteRepeatable(
+            animation = tween(animationDuration, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         )
     )
 
-    Box {
+    Canvas(modifier = Modifier) {
 
-        Canvas(
-            modifier = Modifier
-                .size(40.dp)
-                .scale(scale)
-                .graphicsLayer {
-                    rotationZ = rotation
-                }
-        ) {
+        val sweepAngle = 120f
+        val topArcStartAngle = 150f - rotation // Starting angle in degrees
+        val bottomArcStartAngle = 330f - rotation // Starting angle in degrees
 
-            drawArc(
-                color = color,
-                startAngle = 202.5f,
-                sweepAngle = 135f,
-                useCenter = false,
-                style = Stroke(width = 7f, cap = StrokeCap.Round),
-            )
-
-            drawCircle(
-                color = color,
-                radius = 35f,
-            )
-
-            drawArc(
-                color = color,
-                startAngle = 22.5f,
-                sweepAngle = 135f,
-                useCenter = false,
-                style = Stroke(width = 7f, cap = StrokeCap.Round),
+        val topArcPath = Path().apply {
+            addArc(
+                oval = Rect(
+                    left = -canvasSize * scale,
+                    top = -canvasSize * scale,
+                    right = canvasSize * scale,
+                    bottom = canvasSize * scale
+                ),
+                startAngleDegrees = topArcStartAngle,
+                sweepAngleDegrees = sweepAngle
             )
         }
+
+        val bottomArcPath = Path().apply {
+            addArc(
+                oval = Rect(
+                    left = -canvasSize * scale,
+                    top = -canvasSize * scale,
+                    right = canvasSize * scale,
+                    bottom = canvasSize * scale
+                ),
+                startAngleDegrees = bottomArcStartAngle,
+                sweepAngleDegrees = sweepAngle
+            )
+        }
+
+        drawPath(
+            path = topArcPath,
+            color = color,
+            style = Stroke(
+                width = penThickness.toPx(),
+                cap = StrokeCap.Round,
+                join = StrokeJoin.Round
+            )
+        )
+
+        drawCircle(
+            color = color,
+            radius = (circleDiameter / 2) * scale,
+        )
+
+        drawPath(
+            path = bottomArcPath,
+            color = color,
+            style = Stroke(
+                width = penThickness.toPx(),
+                cap = StrokeCap.Round,
+                join = StrokeJoin.Round
+            )
+        )
     }
 }
