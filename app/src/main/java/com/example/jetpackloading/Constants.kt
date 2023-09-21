@@ -14,12 +14,6 @@ val ANIMATION_DEFAULT_COLOR = Color.White
 
 // ---------------------------------- component special values -------------------------------------
 
-//CircularPulsatingIndicator
-const val CIRCULAR_PROGRESS_MAX_SIZE: Float = 6f
-const val CIRCULAR_PROGRESS_Min_SIZE: Float = 2.2f
-const val ANIMATION_DURATION: Int = 850
-
-
 //PulsatingDot & GridPulsatingDot
 const val DOTS_COUNT: Int = 3
 const val PULSE_DELAY: Int = 300 // in milliseconds
@@ -32,6 +26,3 @@ const val SQUARE_ANIMATION_DELAY: Int = 850 // in milliseconds
 
 // TriangleSpinIndicator
 const val TRIANGLE_ANIMATION_DELAY: Int = 850 // in milliseconds
-
-// BallPulseRiseIndicator
-val Ball_SIZE: Dp = 80.dp

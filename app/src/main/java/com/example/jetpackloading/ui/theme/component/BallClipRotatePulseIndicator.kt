@@ -24,7 +24,7 @@ import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 @Composable
 fun BallClipRotatePulseIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    canvasSize: Float = 60f,
+    canvasSize: Float = 80f,
     penThickness: Dp = 1.dp,
     circleDiameter: Float = canvasSize / 2,
     animationDuration: Int = 500

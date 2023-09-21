@@ -22,7 +22,7 @@ fun BallScaleRippleMultipleIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     duration: Int = 1500,
     largerRadius: Float = 100f,
-    circleCount: Int = 2,
+    circleCount: Int = 5,
     minAlpha: Float = 0.2f,
     maxAlpha: Float = 1.0f,
     minScale: Float = 0f,
