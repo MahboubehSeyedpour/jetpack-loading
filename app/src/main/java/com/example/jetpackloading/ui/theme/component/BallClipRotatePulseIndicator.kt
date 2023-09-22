@@ -25,7 +25,7 @@ import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 fun BallClipRotatePulseIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     canvasSize: Float = 80f,
-    penThickness: Dp = 1.dp,
+    penThickness: Dp = 2.dp,
     circleDiameter: Float = canvasSize / 2,
     animationDuration: Int = 500
 ) {

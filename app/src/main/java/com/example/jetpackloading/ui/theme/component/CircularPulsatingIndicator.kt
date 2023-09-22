@@ -24,7 +24,7 @@ fun CircularPulsatingIndicator(
     animationDuration: Int = 850,
     progress: Float = 0.8f, // must be less than 1.0
     canvasSize: Float = 80f,
-    penThickness: Dp = 1.dp,
+    penThickness: Dp = 2.dp,
 ) {
 
     val transition = rememberInfiniteTransition()
