@@ -6,7 +6,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -17,10 +16,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
+import com.example.jetpackloading.enums.DrawStyleType
 import com.example.jetpackloading.enums.RotationAxis
 import com.example.jetpackloading.enums.SquareCardFace
 import kotlinx.coroutines.delay
@@ -30,7 +35,9 @@ import kotlinx.coroutines.launch
 fun SquareSpinIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
     animationDelay: Int = 800,
-    canvasSize: Dp = 30.dp,
+    canvasSize: Float = 60f,
+    style: DrawStyleType = DrawStyleType.FILL,
+    penThickness: Dp = 2.dp,
 ) {
 
     var squareCardFace by remember { mutableStateOf(SquareCardFace.AxisX) }
@@ -63,7 +70,6 @@ fun SquareSpinIndicator(
     )
 
     Canvas(modifier = Modifier
-        .size(canvasSize)
         .graphicsLayer {
             if (axis == RotationAxis.AxisX) {
                 rotationX = rotation
@@ -72,18 +78,28 @@ fun SquareSpinIndicator(
             }
         }) {
 
-        val squareSize = canvasSize.toPx()
+        val path = Path().apply {
+            addRect(
+                rect = Rect(
+                    left = -canvasSize,
+                    top = -canvasSize,
+                    right = canvasSize,
+                    bottom = canvasSize
+                )
+            )
+        }
 
-        val left = (size.width - squareSize) / 2
-        val top = (size.height - squareSize) / 2
-        val right = left + squareSize
-        val bottom = top + squareSize
-
-        val squareRect = Rect(left, top, right, bottom)
-
-        drawRect(
+        drawPath(
+            path = path,
             color = color,
-            size = squareRect.size
+            style = when (style) {
+                DrawStyleType.FILL -> Fill
+                DrawStyleType.STROKE -> Stroke(
+                    width = penThickness.toPx(),
+                    cap = StrokeCap.Round,
+                    join = StrokeJoin.Round
+                )
+            }
         )
     }
 }
