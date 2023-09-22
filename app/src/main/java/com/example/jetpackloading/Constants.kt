@@ -14,10 +14,5 @@ val ANIMATION_DEFAULT_COLOR = Color.White
 
 // ---------------------------------- component special values -------------------------------------
 
-//PulsatingDot & GridPulsatingDot
-const val DOTS_COUNT: Int = 3
-const val PULSE_DELAY: Int = 300 // in milliseconds
-val DOT_SIZE: Dp = 10.dp
-
 // TriangleSpinIndicator
 const val TRIANGLE_ANIMATION_DELAY: Int = 850 // in milliseconds

@@ -1,81 +1,76 @@
 package com.example.jetpackloading.ui.theme.component
 
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
-import com.example.jetpackloading.DOTS_COUNT
-import com.example.jetpackloading.DOT_SIZE
-import com.example.jetpackloading.PULSE_DELAY
+import kotlinx.coroutines.delay
 
 @Composable
 fun PulsatingDot(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    dotSize: Dp = DOT_SIZE,
-    pulseDelay: Int = PULSE_DELAY,
-    dotsCount: Int = DOTS_COUNT
+    ballDiameter: Float = 40f,
+    horizontalSpace: Float = 20f,
+    animationDuration: Int = 600,
+    minAlpha: Float = 0f,
+    maxAlpha: Float = 1f
 ) {
-    val infiniteTransition = rememberInfiniteTransition()
 
-    @Composable
-    fun Dot(
-        scale: Float
-    ) = Spacer(
-        Modifier
-            .size(dotSize)
-            .scale(scale)
-            .background(
-                color = color,
-                shape = CircleShape
-            )
-    )
+    val dotsCount = 3
 
-    @Composable
-    fun PulsatingDotWithDelay(delay: Int) = infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 0f,
-        animationSpec = infiniteRepeatable(
-            animation = keyframes {
-                durationMillis = pulseDelay * 4
-                0f at delay with LinearEasing
-                1f at delay + pulseDelay with LinearEasing
-                0f at delay + pulseDelay * 2
+    val scales: List<Float> = (0 until dotsCount).map { index ->
+        var scale by remember { mutableStateOf(maxAlpha) }
+
+        LaunchedEffect(key1 = Unit) {
+
+            delay(animationDuration / dotsCount * index.toLong())
+            animate(
+                initialValue = minAlpha,
+                targetValue = maxAlpha,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(
+                        durationMillis = animationDuration,
+                        easing = LinearEasing
+                    ),
+                    repeatMode = RepeatMode.Reverse,
+                ),
+            ) { value, _ ->
+                scale = value
             }
-        )
-    )
-
-    val dots: MutableList<State<Float>> = mutableListOf()
-
-    for (i in 0 until dotsCount) {
-        dots.add(PulsatingDotWithDelay(delay = pulseDelay * i))
+        }
+        scale
     }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        val spaceSize = 2.dp
+    Canvas(modifier = Modifier) {
+        for (index in 0 until dotsCount) {
 
-        dots.forEach { state ->
-            Dot(state.value)
-            Spacer(Modifier.width(spaceSize))
+            val xOffset = ballDiameter + horizontalSpace
+
+            drawCircle(
+                color = color,
+                radius = (ballDiameter / 2) * scales[index],
+                center = Offset(
+                    x = when {
+                        index < dotsCount / 2 -> -(center.x + xOffset)
+                        index == dotsCount / 2 -> center.x
+                        else -> center.x + xOffset
+                    },
+                    y = 0f
+                )
+            )
         }
     }
 }
