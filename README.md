@@ -1,3 +1,5 @@
+![Image Alt Text](screenshots/header.png)
+
 # JetpackLoading
 JetpackLoading is a collection of nice loading animations for Jetpack Compose.
 
