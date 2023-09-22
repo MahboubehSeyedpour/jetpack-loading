@@ -1,20 +1,15 @@
 ![Image Alt Text](screenshots/header.png)
 
 # JetpackLoading
-JetpackLoading is a collection of nice loading animations for Jetpack Compose.
 
+In almost all applications, there are processes that run asynchronously, such as API requests or long-running tasks. In these cases, developers usually use the loading view to show users that something is in progress.
+JetpackLoading is a collection of nice loading animations in Jetpack Compose, adapted from the famous [AVLoadingIndicatorView](https://github.com/HarlonWang/AVLoadingIndicatorView) library.
 
-
-## 🔗 Links
-You can find Android(XML) version of this [here](https://github.com/ninjaprox/NVActivityIndicatorView)
-
-Also, find iOS version [here](https://github.com/HarlonWang/AVLoadingIndicatorView)
-
+See the animations in the demo section and their use in 
 
 
 ## Demo
 <img src="screenshots/screenshot.gif" alt="GIF 1" width="300" height="600">
-
 
 ##  Indicators
 
@@ -61,4 +56,6 @@ Row 5
  - PacmanIndicator
  - BallGridBeatIndicator
  - SemiCircleSpinIndicator
+
+##  Usage
 
