@@ -8,24 +8,25 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ANIMATION_DEFAULT_COLOR
 
 @Composable
 fun BallClipRotateMultipleIndicator(
     color: Color = ANIMATION_DEFAULT_COLOR,
-    animationDuration: Int = 600
+    animationDuration: Int = 600,
+    penThickness: Dp = 2.dp,
+    canvasSize: Float = 80f,
 ) {
 
 // ------------  Animations -----------------------
@@ -44,67 +45,123 @@ fun BallClipRotateMultipleIndicator(
         initialValue = 0.5f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(500, easing = FastOutSlowInEasing),
+            animation = tween(animationDuration, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         )
     )
 
 
 
-    Box(modifier = Modifier, contentAlignment = Alignment.Center) {
-// ------------  Outer arcs -----------------------
-        Canvas(
-            modifier = Modifier
-                .size(40.dp)
-                .scale(scale)
-                .graphicsLayer {
-                    rotationZ = rotation
-                }
-        ) {
+// -------------------------  path: outer arcs  -----------------------
+    val sweepAngle = 120f
 
-            drawArc(
-                color = color,
-                startAngle = 202.5f,
-                sweepAngle = 135f,
-                useCenter = false,
-                style = Stroke(width = 7f, cap = StrokeCap.Round),
+    val inTopArcStartAngle = 150f - rotation // Starting angle in degrees
+    val outBottomArcStartAngle = 330f - rotation // Starting angle in degrees
+
+    val outerTopArcPath = Path().apply {
+        addArc(
+            oval = Rect(
+                left = -canvasSize * scale,
+                top = -canvasSize * scale,
+                right = canvasSize * scale,
+                bottom = canvasSize * scale
+            ),
+            startAngleDegrees = inTopArcStartAngle,
+            sweepAngleDegrees = sweepAngle
+        )
+    }
+
+    val outerBottomArcPath = Path().apply {
+        addArc(
+            oval = Rect(
+                left = -canvasSize * scale,
+                top = -canvasSize * scale,
+                right = canvasSize * scale,
+                bottom = canvasSize * scale
+            ),
+            startAngleDegrees = outBottomArcStartAngle,
+            sweepAngleDegrees = sweepAngle
+        )
+    }
+
+
+// -------------------------  path: inner arcs  -----------------------
+    val innerTopArcStartAngle = 90f + rotation // Starting angle in degrees
+    val innerBottomArcStartAngle = 270f + rotation // Starting angle in degrees
+
+    val innerTopArcPath = Path().apply {
+        addArc(
+            oval = Rect(
+                left = -(canvasSize / 2) * scale,
+                top = -(canvasSize / 2) * scale,
+                right = (canvasSize / 2) * scale,
+                bottom = (canvasSize / 2) * scale
+            ),
+            startAngleDegrees = innerTopArcStartAngle,
+            sweepAngleDegrees = sweepAngle
+        )
+    }
+
+    val innerBottomArcPath = Path().apply {
+        addArc(
+            oval = Rect(
+                left = -(canvasSize / 2) * scale,
+                top = -(canvasSize / 2) * scale,
+                right = (canvasSize / 2) * scale,
+                bottom = (canvasSize / 2) * scale
+            ),
+            startAngleDegrees = innerBottomArcStartAngle,
+            sweepAngleDegrees = sweepAngle
+        )
+    }
+
+
+
+
+    Canvas(modifier = Modifier) {
+
+        // outer top arc
+        drawPath(
+            path = outerTopArcPath,
+            color = color,
+            style = Stroke(
+                width = penThickness.toPx(),
+                cap = StrokeCap.Round,
+                join = StrokeJoin.Round
             )
+        )
 
-            drawArc(
-                color = color,
-                startAngle = 22.5f,
-                sweepAngle = 135f,
-                useCenter = false,
-                style = Stroke(width = 7f, cap = StrokeCap.Round),
+        // inner top arc
+        drawPath(
+            path = innerTopArcPath,
+            color = color,
+            style = Stroke(
+                width = penThickness.toPx(),
+                cap = StrokeCap.Round,
+                join = StrokeJoin.Round
             )
-        }
+        )
 
-
-// ------------  Inner arcs -----------------------
-        Canvas(
-            modifier = Modifier
-                .size(15.dp)
-                .scale(scale)
-                .graphicsLayer {
-                    rotationZ = -rotation
-                }
-        ) {
-
-            drawArc(
-                color = color,
-                startAngle = 100f,
-                sweepAngle = 150f,
-                useCenter = false,
-                style = Stroke(width = 7f, cap = StrokeCap.Round),
+        // inner bottom arc
+        drawPath(
+            path = innerBottomArcPath,
+            color = color,
+            style = Stroke(
+                width = penThickness.toPx(),
+                cap = StrokeCap.Round,
+                join = StrokeJoin.Round
             )
+        )
 
-            drawArc(
-                color = color,
-                startAngle = 300f,
-                sweepAngle = 120f,
-                useCenter = false,
-                style = Stroke(width = 7f, cap = StrokeCap.Round),
+        // outer bottom arc
+        drawPath(
+            path = outerBottomArcPath,
+            color = color,
+            style = Stroke(
+                width = penThickness.toPx(),
+                cap = StrokeCap.Round,
+                join = StrokeJoin.Round
             )
-        }
+        )
     }
 }
