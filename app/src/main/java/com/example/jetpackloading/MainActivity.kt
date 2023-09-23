@@ -69,8 +69,6 @@ fun Greeting() {
     // get screen height and width
     val configuration = LocalConfiguration.current
     val screenWidthDp = configuration.screenWidthDp.dp
-    val screenHeightDp = configuration.screenHeightDp.dp
-
 
     Column(
         modifier = Modifier
