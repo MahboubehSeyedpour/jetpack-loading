@@ -5,7 +5,7 @@
 In almost all applications, there are processes that run asynchronously, such as API requests or long-running tasks. In these cases, developers usually use the loading view to show users that something is in progress.
 JetpackLoading is a collection of nice loading animations in Jetpack Compose, adapted from the famous [AVLoadingIndicatorView](https://github.com/HarlonWang/AVLoadingIndicatorView) library.
 
-See the animations in the demo section and their use in 
+See the animations in the [Demo](https://github.com/MahboubehSeyedpour/JetpackLoading#demo) section and their use in [Usage](https://github.com/MahboubehSeyedpour/JetpackLoading#usage)
 
 
 ## Demo
