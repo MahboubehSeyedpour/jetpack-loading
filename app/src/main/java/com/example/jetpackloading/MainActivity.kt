@@ -1,6 +1,5 @@
 package com.example.jetpackloading
 
-import CircularPulsatingIndicator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,34 +16,36 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.jetpack_loading.components.BallBeatIndicator
 import com.example.jetpackloading.enums.PunchType
+import com.example.jetpackloading.theme.background
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
-import com.example.jetpackloading.ui.theme.background
-import com.example.jetpackloading.ui.theme.component.BallBeatIndicator
-import com.example.jetpackloading.ui.theme.component.BallClipRotateMultipleIndicator
-import com.example.jetpackloading.ui.theme.component.BallClipRotatePulseIndicator
-import com.example.jetpackloading.ui.theme.component.BallGridBeatIndicator
-import com.example.jetpackloading.ui.theme.component.BallPulseRiseIndicator
-import com.example.jetpackloading.ui.theme.component.BallPulseSyncIndicator
-import com.example.jetpackloading.ui.theme.component.BallRotateIndicator
-import com.example.jetpackloading.ui.theme.component.BallScaleIndicator
-import com.example.jetpackloading.ui.theme.component.BallScaleMultipleIndicator
-import com.example.jetpackloading.ui.theme.component.BallScaleRippleIndicator
-import com.example.jetpackloading.ui.theme.component.BallScaleRippleMultipleIndicator
-import com.example.jetpackloading.ui.theme.component.BallSpinFadeLoaderIndicator
-import com.example.jetpackloading.ui.theme.component.BallTrianglePathIndicator
-import com.example.jetpackloading.ui.theme.component.BallZigZagDeflectIndicator
-import com.example.jetpackloading.ui.theme.component.BallZigZagIndicator
-import com.example.jetpackloading.ui.theme.component.CubeTransitionIndicator
-import com.example.jetpackloading.ui.theme.component.GridPulsatingDot
-import com.example.jetpackloading.ui.theme.component.LineSpinFadeLoaderIndicator
-import com.example.jetpackloading.ui.theme.component.PacmanIndicator
-import com.example.jetpackloading.ui.theme.component.PulsatingDot
-import com.example.jetpackloading.ui.theme.component.SemiCircleSpinIndicator
-import com.example.jetpackloading.ui.theme.component.SquareSpinIndicator
-import com.example.jetpackloading.ui.theme.component.TriangleSpinIndicator
 import com.example.jetpackloading.ui.theme.component.lineScaleIndicator.LineScaleIndicator
+import com.spr.jetpack_loading.components.BallClipRotateMultipleIndicator
+import com.spr.jetpack_loading.components.BallClipRotatePulseIndicator
+import com.spr.jetpack_loading.components.BallGridBeatIndicator
+import com.spr.jetpack_loading.components.BallPulseRiseIndicator
+import com.spr.jetpack_loading.components.BallPulseSyncIndicator
+import com.spr.jetpack_loading.components.BallRotateIndicator
+import com.spr.jetpack_loading.components.BallScaleIndicator
+import com.spr.jetpack_loading.components.BallScaleMultipleIndicator
+import com.spr.jetpack_loading.components.BallScaleRippleIndicator
+import com.spr.jetpack_loading.components.BallScaleRippleMultipleIndicator
+import com.spr.jetpack_loading.components.BallSpinFadeLoaderIndicator
+import com.spr.jetpack_loading.components.BallTrianglePathIndicator
+import com.spr.jetpack_loading.components.BallZigZagDeflectIndicator
+import com.spr.jetpack_loading.components.BallZigZagIndicator
+import com.spr.jetpack_loading.components.CircularPulsatingIndicator
+import com.spr.jetpack_loading.components.CubeTransitionIndicator
+import com.spr.jetpack_loading.components.GridPulsatingDot
+import com.spr.jetpack_loading.components.LineSpinFadeLoaderIndicator
+import com.spr.jetpack_loading.components.PacmanIndicator
+import com.spr.jetpack_loading.components.PulsatingDot
+import com.spr.jetpack_loading.components.SemiCircleSpinIndicator
+import com.spr.jetpack_loading.components.SquareSpinIndicator
+import com.spr.jetpack_loading.components.TriangleSpinIndicator
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +66,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting() {
+
+    val rowHeight: Dp = 50.dp
 
     // get screen height and width
     val configuration = LocalConfiguration.current

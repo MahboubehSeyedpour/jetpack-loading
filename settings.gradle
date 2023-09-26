@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JetpackLoading"
 include ':app'
+include ':jetpack-loading'
