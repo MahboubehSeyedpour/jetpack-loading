@@ -30,7 +30,7 @@ See the animations in the [Demo](https://github.com/MahboubehSeyedpour/JetpackLo
   
   ```bash
   dependencies {
-	implementation 'com.github.MahboubehSeyedpour:JetpackLoading:0.1.0'
+	implementation 'com.github.MahboubehSeyedpour:jetpack-loading:0.1.0'
   }
   
    
