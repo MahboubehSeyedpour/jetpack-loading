@@ -1,7 +1,10 @@
+import io.grpc.internal.SharedResourceHolder.release
+import org.jetbrains.kotlin.config.JvmAnalysisFlags.useIR
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id ("maven-publish")
+    id("maven-publish")
 }
 
 android {
@@ -35,37 +38,26 @@ android {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
     buildFeatures {
-        compose= true
-    }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.github.MahboubehSeydpour"
-            artifactId = "jetpack-loading"
-            version = "0.1.0"
-
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
+        compose = true
     }
 }
 
 dependencies {
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(platform("androidx.compose:compose-bom:2022.10.00"))
+    implementation("androidx.compose.material3:material3")
+}
 
-    implementation ("androidx.core:core-ktx:1.12.0")
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation (platform("androidx.compose:compose-bom:2022.10.00"))
-    implementation ("androidx.compose.ui:ui")
-    implementation ("androidx.compose.ui:ui-graphics")
-    implementation ("androidx.compose.material3:material3")
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                from(components["release"])
+
+                groupId = "com.github.MahboubehSeyedpour"
+                artifactId = "jetpack-loading"
+                version = "0.1.0"
+            }
+        }
+    }
 }
