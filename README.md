@@ -13,7 +13,7 @@ See the animations in the [Demo](https://github.com/MahboubehSeyedpour/JetpackLo
 ## Usage
 
 - #### Step 1
-  Add it in your root build.gradle:
+  Add it in settings.gradle:
   
   ```bash
   allprojects {
