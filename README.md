@@ -2,7 +2,6 @@
 
 # JetpackLoading
 
-In almost all applications, there are processes that run asynchronously, such as API requests or long-running tasks. In these cases, developers usually use the loading view to show users that something is in progress.
 JetpackLoading is a collection of nice loading animations in Jetpack Compose, adapted from the famous [AVLoadingIndicatorView](https://github.com/HarlonWang/AVLoadingIndicatorView) library.
 
 See the animations in the [Demo](https://github.com/MahboubehSeyedpour/JetpackLoading#demo) section and their use in [Usage](https://github.com/MahboubehSeyedpour/JetpackLoading#usage)
@@ -14,7 +13,7 @@ See the animations in the [Demo](https://github.com/MahboubehSeyedpour/JetpackLo
 ## Usage
 
 - #### Step 1
-  Add it in your root build.gradle:
+  Add it in settings.gradle:
   
   ```bash
   allprojects {
@@ -30,7 +29,7 @@ See the animations in the [Demo](https://github.com/MahboubehSeyedpour/JetpackLo
   
   ```bash
   dependencies {
-	implementation 'com.github.MahboubehSeyedpour:JetpackLoading:0.1.0'
+	implementation 'com.github.MahboubehSeyedpour:jetpack-loading:0.1.0'
   }
   
    
@@ -113,17 +112,17 @@ Row 5
 ## License
 
 ```
-Copyright 2015 jack wang
+Copyright 2023 Mahboubeh Seyedpour
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+       http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
 ```
