@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.jetpack_loading.components.BallBeatIndicator
+import com.example.jetpack_loading.indicators.BallBeatIndicator
 import com.example.jetpackloading.enums.PunchType
 import com.example.jetpackloading.theme.background
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme

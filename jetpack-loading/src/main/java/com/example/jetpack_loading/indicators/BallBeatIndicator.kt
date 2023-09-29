@@ -1,4 +1,4 @@
-package com.example.jetpack_loading.components
+package com.example.jetpack_loading.indicators
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animate
