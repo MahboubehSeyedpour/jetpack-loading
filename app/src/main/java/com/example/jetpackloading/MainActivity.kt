@@ -18,13 +18,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.jetpack_loading.enums.GridAnimationType
 import com.example.jetpack_loading.indicators.BallBeatIndicator
+import com.example.jetpack_loading.indicators.gridIndicator.GridFadeDiagonal
+import com.example.jetpack_loading.indicators.gridIndicator.GridIndicator
 import com.example.jetpackloading.enums.PunchType
 import com.example.jetpackloading.theme.background
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.component.lineScaleIndicator.LineScaleIndicator
 import com.spr.jetpack_loading.components.BallClipRotateMultipleIndicator
 import com.spr.jetpack_loading.components.BallClipRotatePulseIndicator
+//import com.example.jetpack_loading.indicators.BallGridBeatIndicator
 import com.spr.jetpack_loading.components.BallGridBeatIndicator
 import com.spr.jetpack_loading.components.BallPulseRiseIndicator
 import com.spr.jetpack_loading.components.BallPulseSyncIndicator
@@ -39,10 +43,8 @@ import com.spr.jetpack_loading.components.BallZigZagDeflectIndicator
 import com.spr.jetpack_loading.components.BallZigZagIndicator
 import com.spr.jetpack_loading.components.CircularPulsatingIndicator
 import com.spr.jetpack_loading.components.CubeTransitionIndicator
-import com.spr.jetpack_loading.components.GridPulsatingDot
 import com.spr.jetpack_loading.components.LineSpinFadeLoaderIndicator
 import com.spr.jetpack_loading.components.PacmanIndicator
-import com.spr.jetpack_loading.components.PulsatingDot
 import com.spr.jetpack_loading.components.SemiCircleSpinIndicator
 import com.spr.jetpack_loading.components.SquareSpinIndicator
 import com.spr.jetpack_loading.components.TriangleSpinIndicator
@@ -87,8 +89,8 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            PulsatingDot()
-            GridPulsatingDot()
+            GridIndicator(animationType = GridAnimationType.DIAGONAL)
+            GridIndicator(animationType = GridAnimationType.PULSATING)
             CircularPulsatingIndicator()
             BallClipRotatePulseIndicator()
         }
@@ -173,7 +175,7 @@ fun Greeting() {
         ) {
             TriangleSpinIndicator()
             PacmanIndicator()
-            BallGridBeatIndicator()
+            GridIndicator(animationType = GridAnimationType.BEATING)
             SemiCircleSpinIndicator(canvasSize = screenWidthDp / 9)
         }
     }
