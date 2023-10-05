@@ -48,6 +48,14 @@ fun GridIndicator(
             animationDuration,
         )
 
-        else -> {}
+        GridAnimationType.ANTI_DIAGONAL -> GridFadeAntiDiagonal(
+            color,
+            ballDiameter,
+            verticalSpace,
+            horizontalSpace,
+            minAlpha,
+            maxAlpha,
+            animationDuration,
+        )
     }
 }

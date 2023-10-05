@@ -45,6 +45,7 @@ import com.spr.jetpack_loading.components.CircularPulsatingIndicator
 import com.spr.jetpack_loading.components.CubeTransitionIndicator
 import com.spr.jetpack_loading.components.LineSpinFadeLoaderIndicator
 import com.spr.jetpack_loading.components.PacmanIndicator
+import com.spr.jetpack_loading.components.PulsatingDot
 import com.spr.jetpack_loading.components.SemiCircleSpinIndicator
 import com.spr.jetpack_loading.components.SquareSpinIndicator
 import com.spr.jetpack_loading.components.TriangleSpinIndicator
@@ -89,7 +90,7 @@ fun Greeting() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            GridIndicator(animationType = GridAnimationType.DIAGONAL)
+            PulsatingDot()
             GridIndicator(animationType = GridAnimationType.PULSATING)
             CircularPulsatingIndicator()
             BallClipRotatePulseIndicator()
