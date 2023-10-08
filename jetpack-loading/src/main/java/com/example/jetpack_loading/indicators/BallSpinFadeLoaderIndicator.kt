@@ -14,7 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import com.example.jetpackloading.enums.AnimationType
+import com.example.jetpackloading.enums.LinearAnimationType
 import kotlinx.coroutines.delay
 import kotlin.math.cos
 import kotlin.math.sin
@@ -22,7 +22,7 @@ import kotlin.math.sin
 @Composable
 fun BallSpinFadeLoaderIndicator(
     color: Color = Color.White,
-    animationType: AnimationType = AnimationType.CIRCULAR,
+    linearAnimationType: LinearAnimationType = LinearAnimationType.CIRCULAR,
     radius: Float = 70f,
     ballCount: Int = 8,
     ballRadius: Float = 12f
@@ -35,13 +35,13 @@ fun BallSpinFadeLoaderIndicator(
         var animatedValue: Float by remember { mutableStateOf(0f) }
         LaunchedEffect(key1 = Unit) {
 
-            when (animationType) {
-                AnimationType.CIRCULAR -> {
-                    delay(animationType.circleDelay * index)
+            when (linearAnimationType) {
+                LinearAnimationType.CIRCULAR -> {
+                    delay(linearAnimationType.circleDelay * index)
                 }
 
-                AnimationType.SKIP_AND_REPEAT -> {
-                    delay(animationType.circleDelay * index) // The constant value, here 250L, must be the same animation duration for this pattern to run
+                LinearAnimationType.SKIP_AND_REPEAT -> {
+                    delay(linearAnimationType.circleDelay * index) // The constant value, here 250L, must be the same animation duration for this pattern to run
                 }
             }
 
@@ -49,13 +49,13 @@ fun BallSpinFadeLoaderIndicator(
                 initialValue = 0.2f,
                 targetValue = 1f,
                 animationSpec = infiniteRepeatable(
-                    animation = when (animationType) {
-                        AnimationType.CIRCULAR -> {
-                            tween(durationMillis = animationType.animDuration)
+                    animation = when (linearAnimationType) {
+                        LinearAnimationType.CIRCULAR -> {
+                            tween(durationMillis = linearAnimationType.animDuration)
                         }
 
-                        AnimationType.SKIP_AND_REPEAT -> {
-                            tween(durationMillis = animationType.animDuration)
+                        LinearAnimationType.SKIP_AND_REPEAT -> {
+                            tween(durationMillis = linearAnimationType.animDuration)
                         }
                     },
                     repeatMode = RepeatMode.Reverse,
