@@ -1,4 +1,4 @@
-package com.example.jetpack_loading.indicators
+package com.example.jetpack_loading.indicators.shape_unveil_indicator
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -18,13 +18,14 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.delay
 
 @Composable
-fun ShapeUnveil(
+fun TriangleShapeIndicator(
+    modifier: Modifier = Modifier,
     color: Color = Color.White,
     canvasSize: Float = 200f,
-    canvasModifier: Modifier = Modifier,
     circleDiameter: Float = canvasSize / 4,
     animationDuration: Int = 3000
 ) {
+
     val circleCounts = 6
 
     val circleDestination =
@@ -42,7 +43,7 @@ fun ShapeUnveil(
 
         LaunchedEffect(key1 = Unit) {
 
-            delay(index * (animationDuration / 10L))
+            delay(index * (animationDuration / (2 * circleCounts)).toLong())
 
             animate(
                 initialValue = 0f,
@@ -50,9 +51,9 @@ fun ShapeUnveil(
                 animationSpec = infiniteRepeatable(
                     animation = keyframes {
                         durationMillis = animationDuration
-                        circleDestination[index] at animationDuration / 10 with FastOutSlowInEasing
+                        circleDestination[index] at animationDuration / (2 * circleCounts) with FastOutSlowInEasing
                         circleDestination[index] at animationDuration / 2 with FastOutSlowInEasing
-                        0f at 6 * animationDuration / 10 with FastOutSlowInEasing
+                        0f at animationDuration / 2 + animationDuration / (2 * circleCounts) with FastOutSlowInEasing
                         0f at animationDuration with FastOutSlowInEasing
                     },
                     repeatMode = RepeatMode.Restart,
@@ -62,7 +63,7 @@ fun ShapeUnveil(
         position
     }
 
-    Canvas(modifier = canvasModifier) {
+    Canvas(modifier = modifier) {
 
         (0 until circleCounts).map { circleIndex ->
             drawCircle(
