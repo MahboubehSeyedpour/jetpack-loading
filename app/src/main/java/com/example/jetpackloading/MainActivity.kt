@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.jetpack_loading.enums.GridAnimationType
 import com.example.jetpack_loading.indicators.BallBeatIndicator
-import com.example.jetpack_loading.indicators.gridIndicator.GridFadeDiagonal
 import com.example.jetpack_loading.indicators.gridIndicator.GridIndicator
 import com.example.jetpackloading.enums.PunchType
 import com.example.jetpackloading.theme.background
@@ -28,8 +27,6 @@ import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
 import com.example.jetpackloading.ui.theme.component.lineScaleIndicator.LineScaleIndicator
 import com.spr.jetpack_loading.components.BallClipRotateMultipleIndicator
 import com.spr.jetpack_loading.components.BallClipRotatePulseIndicator
-//import com.example.jetpack_loading.indicators.BallGridBeatIndicator
-import com.spr.jetpack_loading.components.BallGridBeatIndicator
 import com.spr.jetpack_loading.components.BallPulseRiseIndicator
 import com.spr.jetpack_loading.components.BallPulseSyncIndicator
 import com.spr.jetpack_loading.components.BallRotateIndicator
