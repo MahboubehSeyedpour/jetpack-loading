@@ -32,7 +32,5 @@ fun ShapeUnveilIndicator(
             circleCounts,
             animationDuration
         )
-
-        else -> {}
     }
 }
