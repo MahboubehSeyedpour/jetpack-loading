@@ -22,7 +22,7 @@ fun TriangleShapeIndicator(
     modifier: Modifier = Modifier,
     color: Color = Color.White,
     canvasSize: Float = 200f,
-    circleDiameter: Float = canvasSize / 4,
+    circleDiameter: Float = 40f,
     animationDuration: Int = 3000
 ) {
 

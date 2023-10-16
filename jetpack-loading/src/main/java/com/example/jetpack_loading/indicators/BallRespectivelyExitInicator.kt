@@ -19,9 +19,10 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun BallRespectivelyExitIndicator(
+    modifier: Modifier = Modifier,
     color: Color = Color.White,
     canvasSize: Float = 100f,
-    circleDiameter: Float = canvasSize / 4,
+    circleDiameter: Float = 40f,
     animationDuration: Int = 2000
 ) {
 
@@ -64,7 +65,7 @@ fun BallRespectivelyExitIndicator(
         offset
     }
 
-    Canvas(modifier = Modifier) {
+    Canvas(modifier = modifier) {
 
         (0 until circleCounts).map { circleIndex ->
             drawCircle(
