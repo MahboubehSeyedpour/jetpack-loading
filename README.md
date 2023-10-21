@@ -7,8 +7,13 @@ JetpackLoading is a collection of nice loading animations in Jetpack Compose, ad
 See the animations in the [Demo](https://github.com/MahboubehSeyedpour/JetpackLoading#demo) section and their use in [Usage](https://github.com/MahboubehSeyedpour/JetpackLoading#usage)
 
 
+
 ## Demo
-<img src="screenshots/screenshot.gif" alt="GIF 1" width="300" height="600">
+Indicators #1                                                                |  Indicators #2
+:---------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:
+<img src="screenshots/screenshot.gif" alt="GIF 1" width="300" height="600">  |  <img src="screenshots/screenshot_1.gif" alt="GIF 1" width="300" height="600">
+
+
 
 ## Usage
 
