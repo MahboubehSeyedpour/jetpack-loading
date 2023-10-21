@@ -65,47 +65,61 @@ Enjoy JetpackLoading 😊
 
 The indicators are as follows:
 
-Row 1
- - `PulsatingDot`
- - `GridPulsatingDot`
- - `CircularPulsatingIndicator`
- - `BallClipRotatePulseIndicator`
+1. Indicators #1
+   
+	Row 1
+ 	- `PulsatingDot`
+ 	- `GridPulsatingDot`
+ 	- `CircularPulsatingIndicator`
+ 	- `BallClipRotatePulseIndicator`
 
- Row 2
- - `SquareSpinIndicator`
- - `BallClipRotateMultipleIndicator`
- - `BallPulseRiseIndicator`
- - `BallRotateIndicator`
+ 	Row 2
+ 	- `SquareSpinIndicator`
+ 	- `BallClipRotateMultipleIndicator`
+ 	- `BallPulseRiseIndicator`
+ 	- `BallRotateIndicator`
 
-  Row 3
- - `CubeTransitionIndicator`
- - `BallZigZagIndicator`
- - `BallZigZagDeflectIndicator`
- - `BallTrianglePathIndicator`
+  	Row 3
+ 	- `CubeTransitionIndicator`
+ 	- `BallZigZagIndicator`
+ 	- `BallZigZagDeflectIndicator`
+ 	- `BallTrianglePathIndicator`
 
-Row 4
- - `BallScaleIndicator`
- - `LineScaleIndicator`
- - `LineScaleIndicator`
- - `BallScaleMultipleIndicator`
+	Row 4
+	- `BallScaleIndicator`
+ 	- `LineScaleIndicator`
+ 	- `LineScaleIndicator`
+ 	- `BallScaleMultipleIndicator`
 
-Row 5
- - `BallPulseSyncIndicator`
- - `BallBeatIndicator`
- - `LineScaleIndicator`
- - `LineScaleIndicator`
+	Row 5
+ 	- `BallPulseSyncIndicator`
+ 	- `BallBeatIndicator`
+ 	- `LineScaleIndicator`
+ 	- `LineScaleIndicator`
 
- Row 6
- - `BallScaleRippleIndicator`
- - `BallScaleRippleMultipleIndicator`
- - `BallSpinFadeLoaderIndicator`
- - `LineSpinFadeLoaderIndicator`
+ 	Row 6
+ 	- `BallScaleRippleIndicator`
+ 	- `BallScaleRippleMultipleIndicator`
+ 	- `BallSpinFadeLoaderIndicator`
+ 	- `LineSpinFadeLoaderIndicator`
 
-  Row 7
- - `TriangleSpinIndicator`
- - `PacmanIndicator`
- - `BallGridBeatIndicator`
- - `SemiCircleSpinIndicator`
+  	Row 7
+ 	- `TriangleSpinIndicator`
+ 	- `PacmanIndicator`
+ 	- `BallGridBeatIndicator`
+ 	- `SemiCircleSpinIndicator`
+
+
+2. Indicators #2
+   
+	Row 1
+ 	- `GridFadeDiagonal`
+ 	- `GridFadeAntiDiagonal`
+ 	- `BallRespectivelyExitIndicator`
+ 	- `TriangleShapeIndicator`
+
+ 	Row 2
+ 	- `CircleShapeIndicator`
 
 
 ## 🔗 Contact
