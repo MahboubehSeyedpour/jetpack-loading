@@ -34,7 +34,7 @@ Indicators #1                                                                |  
   
   ```bash
   dependencies {
-	implementation 'com.github.MahboubehSeyedpour:jetpack-loading:1.0.0'
+	implementation 'com.github.MahboubehSeyedpour:jetpack-loading:1.1.0'
   }
   
    
