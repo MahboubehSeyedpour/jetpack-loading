@@ -23,11 +23,11 @@ import kotlinx.coroutines.delay
 @Composable
 fun FadeRotateIndicator(
     color: Color = Color.White,
-    animationDuration: Int = 2000,
+    animationDuration: Int = 1500,
     sideLength: Float = 50f,
-    cornerRadius: Float = 12f,
+    cornerRadius: Float = 10f,
     gap: Float = 2f,
-    alphaMinValue: Float = 0.1f,
+    alphaMinValue: Float = 0f,
     alphaMaxValue: Float = 1f,
 ) {
     val rectCount = 4
