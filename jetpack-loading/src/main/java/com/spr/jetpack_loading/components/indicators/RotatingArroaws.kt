@@ -7,119 +7,127 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.spr.jetpack_loading.extension.toRadian
+import kotlin.math.cos
+import kotlin.math.sin
 
-// TODO: Arrows should be written as independent components
+
 @Composable
 fun RotatingArrows(
     color: Color = Color.White,
     animationDuration: Int = 1000,
-    penThickness: Dp = 4.dp,
-    canvasSize: Float = 135f,
-    targetRotationValue: Float = 360f
+    canvasSize: Float = 70f,
+    penThickness: Dp = 5.dp
 ) {
 
-    val penThicknessFloat = with(LocalDensity.current) { penThickness.toPx() }
-    val arcSignLength = canvasSize / 7
-    val arc1StartAngel = 90f
-    val arc2StartAngel = 270f
-    val sweepAngle = 120f
-    val startRotationValue: Float = 0f
-
+    val clockwiseRotation = true
 
     // ------------  Animations -----------------------
     val transition = rememberInfiniteTransition()
 
     val rotation by transition.animateFloat(
-        initialValue = startRotationValue,
-        targetValue = targetRotationValue,
+        initialValue = 0f,
+        targetValue = 360f,
         animationSpec = infiniteRepeatable(
             animation = tween(animationDuration, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         )
     )
 
+    Box {
+        DrawCurvedArc(
+            color = color,
+            radius = canvasSize,
+            startAngle = 30f,
+            sweepAngle = 150f,
+            penThickness = penThickness,
+            clockwiseRotation = clockwiseRotation,
+            rotation = rotation
+        )
 
-    // ------------  Paths -----------------------
-    /* In this animation, we have two arrows, each of which has a body and a head */
-
-    val arc1Tail = Path().apply {
-        addArc(
-            oval = Rect(
-                left = -canvasSize / 2,
-                top = -canvasSize / 2,
-                right = canvasSize / 2,
-                bottom = canvasSize / 2
-            ),
-            startAngleDegrees = arc2StartAngel, // Starting angle in degrees
-            sweepAngleDegrees = sweepAngle
+        DrawCurvedArc(
+            color = color,
+            radius = canvasSize,
+            startAngle = 210f,
+            sweepAngle = 150f,
+            penThickness = penThickness,
+            clockwiseRotation = clockwiseRotation,
+            rotation = rotation
         )
     }
+}
 
-    val arc1Head = Path()
-    arc1Head.moveTo(0f, -canvasSize / 2)
-    arc1Head.lineTo(arcSignLength, -canvasSize / 2 + (3 * arcSignLength / 2))
-    arc1Head.moveTo(0f, -canvasSize / 2)
-    arc1Head.lineTo(arcSignLength, -canvasSize / 2 - arcSignLength)
+@Composable
+fun DrawCurvedArc(
+    color: Color,
+    radius: Float,
+    startAngle: Float,
+    sweepAngle: Float,
+    penThickness: Dp,
+    clockwiseRotation: Boolean,
+    rotation: Float = 0f
+) {
 
+    val arcEnd = startAngle + sweepAngle
+    val x0 = radius * (cos((if (clockwiseRotation) arcEnd else startAngle).toRadian())).toFloat()
+    val y0 = radius * sin((if (clockwiseRotation) arcEnd else startAngle).toRadian()).toFloat()
+    val alpha = (if (clockwiseRotation) startAngle + 10 else arcEnd + 10).toRadian()
+    val beta = (if (clockwiseRotation) startAngle + 80 else arcEnd + 80).toRadian()
 
-
-
-    val arc2Tail = Path().apply {
-        addArc(
-            oval = Rect(
-                left = -canvasSize / 2,
-                top = -canvasSize / 2,
-                right = canvasSize / 2,
-                bottom = canvasSize / 2
-            ),
-            startAngleDegrees = arc1StartAngel, // Starting angle in degrees
-            sweepAngleDegrees = sweepAngle
-        )
-    }
-
-    val arc2Head = Path()
-    arc2Head.moveTo(0f, canvasSize / 2)
-    arc2Head.lineTo(-arcSignLength, canvasSize / 2 + arcSignLength)
-    arc2Head.moveTo(0f, canvasSize / 2)
-    arc2Head.lineTo(-arcSignLength, canvasSize / 2 - 3 * arcSignLength / 2)
-
-
-    // ------------ Canvas -----------------------
     Canvas(modifier = Modifier) {
-        rotate(-rotation) {
-            drawPath(
-                path = arc1Tail,
+
+        rotate(rotation) {
+
+//            drawCircle(
+//                color = Color.Black,
+//                radius = radius
+//            )
+
+
+            drawArc(
                 color = color,
-                style = Stroke(width = penThickness.toPx())
+                startAngle = startAngle,
+                sweepAngle = sweepAngle,
+                topLeft = Offset(-radius, -radius),
+                useCenter = false,
+                style = Stroke(width = penThickness.toPx(), cap = StrokeCap.Round),
+                size = Size(2 * radius, 2 * radius)
             )
 
-            drawPath(
-                path = arc1Head,
+
+            drawLine(
                 color = color,
-                style = Stroke(width = penThicknessFloat)
+                start = Offset(x = x0, y = y0),
+                end = Offset(
+                    x0 + (radius / 2) * cos(alpha).toFloat(),
+                    y0 + (radius / 2) * sin(alpha).toFloat()
+                ),
+                strokeWidth = penThickness.toPx(),
+                cap = StrokeCap.Round
             )
 
-            drawPath(
-                path = arc2Tail,
-                color = color,
-                style = Stroke(width = penThickness.toPx())
-            )
 
-            drawPath(
-                path = arc2Head,
+            drawLine(
                 color = color,
-                style = Stroke(width = penThicknessFloat)
+                start = Offset(x = x0, y = y0),
+                end = Offset(
+                    x0 + (radius / 2) * cos(beta).toFloat(),
+                    y0 + (radius / 2) * sin(beta).toFloat()
+                ),
+                strokeWidth = penThickness.toPx(),
+                cap = StrokeCap.Round
             )
         }
     }

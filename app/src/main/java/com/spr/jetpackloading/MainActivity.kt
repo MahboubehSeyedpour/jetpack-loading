@@ -19,8 +19,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
+import com.spr.jetpack_loading.components.indicators.BallBeatIndicator
 import com.spr.jetpack_loading.components.indicators.BallClipRotatePulseIndicator
 import com.spr.jetpack_loading.components.indicators.CircularPulsatingIndicator
+import com.spr.jetpack_loading.components.indicators.FadeRotateIndicator
 import com.spr.jetpack_loading.components.indicators.PulsatingDot
 import com.spr.jetpack_loading.components.indicators.RotatingArrows
 import com.spr.jetpack_loading.components.indicators.gridIndicator.GridIndicator
