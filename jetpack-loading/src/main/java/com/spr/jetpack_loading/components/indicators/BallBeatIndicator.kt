@@ -1,5 +1,7 @@
 package com.spr.jetpack_loading.components.indicators
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -8,6 +10,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -21,45 +25,53 @@ fun BallBeatIndicator(
     ballCount: Int = 3,
     ballDiameter: Float = 40f,
     spaceBetweenBalls: Float = 20f,
-    animationDuration: Int = 350,
-    staggerDelay: Long = 150,
-    minAlpha: Float = 0.4f,
+    animationDuration: Int = 1200,
+    minAlpha: Float = 0.2f,
     maxAlpha: Float = 1f
 ) {
-    val transition = rememberInfiniteTransition()
+    val transition = rememberInfiniteTransition(label = "BallBeat")
 
-    val alphas = (0 until ballCount).map { index ->
-        transition.animateFloat(
-            initialValue = minAlpha,
-            targetValue = maxAlpha,
-            animationSpec = infiniteRepeatable(
-                animation = tween(
-                    durationMillis = animationDuration,
-                    delayMillis = (abs(index - (ballCount - 1) / 2) * staggerDelay).toInt()
-                ),
-                repeatMode = RepeatMode.Reverse
+    val progress by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = ballCount.toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = animationDuration,
+                easing = LinearEasing
             ),
-        )
-    }
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "Progress"
+    )
 
-    val totalWidth = ballCount * ballDiameter + (ballCount - 1) * spaceBetweenBalls
+    val totalWidth =
+        ballCount * ballDiameter + (ballCount - 1) * spaceBetweenBalls
 
     Canvas(
-        modifier = modifier.size(width = totalWidth.dp, height = ballDiameter.dp)
+        modifier = modifier.size(
+            width = totalWidth.dp,
+            height = ballDiameter.dp
+        )
     ) {
-        val xOffset = ballDiameter + spaceBetweenBalls
+        val step = ballDiameter + spaceBetweenBalls
         val centerY = size.height / 2
-        val centerXOffset = (ballCount - 1) * xOffset / 2f
+        val startX = ballDiameter / 2
 
-        for (index in 0 until ballCount) {
-            val currentAlpha = alphas[index].value
+        repeat(ballCount) { index ->
+
+            val distance = kotlin.math.abs(progress - index)
+
+            val alpha = when {
+                distance >= 1f -> minAlpha
+                else -> maxAlpha - (maxAlpha - minAlpha) * distance
+            }
 
             drawCircle(
                 color = color,
                 radius = ballDiameter / 2,
-                alpha = currentAlpha,
+                alpha = alpha,
                 center = Offset(
-                    x = (index * xOffset) - centerXOffset,
+                    x = startX + index * step,
                     y = centerY
                 )
             )
