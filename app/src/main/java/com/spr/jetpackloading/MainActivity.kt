@@ -18,9 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.spr.jetpack_loading.enums.PunchType
 import com.example.jetpackloading.ui.theme.JetpackLoadingTheme
-import com.spr.jetpack_loading.components.indicators.lineScaleIndicator.LineScaleIndicator
+import com.spr.jetpack_loading.components.indicators.BallBeatIndicator
 import com.spr.jetpack_loading.components.indicators.BallClipRotateMultipleIndicator
 import com.spr.jetpack_loading.components.indicators.BallClipRotatePulseIndicator
 import com.spr.jetpack_loading.components.indicators.BallPulseRiseIndicator
@@ -42,9 +41,10 @@ import com.spr.jetpack_loading.components.indicators.PulsatingDot
 import com.spr.jetpack_loading.components.indicators.SemiCircleSpinIndicator
 import com.spr.jetpack_loading.components.indicators.SquareSpinIndicator
 import com.spr.jetpack_loading.components.indicators.TriangleSpinIndicator
-import com.spr.jetpack_loading.components.indicators.BallBeatIndicator
 import com.spr.jetpack_loading.components.indicators.gridIndicator.GridIndicator
+import com.spr.jetpack_loading.components.indicators.lineScaleIndicator.LineScaleIndicator
 import com.spr.jetpack_loading.enums.GridAnimationType
+import com.spr.jetpack_loading.enums.PunchType
 import com.spr.jetpackloading.theme.background
 
 class MainActivity : ComponentActivity() {
@@ -53,9 +53,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackLoadingTheme {
                 Surface(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     Greeting()
                 }
@@ -63,6 +61,38 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+//@Composable
+//fun Greeting() {
+//
+//    val rotation = remember {
+//        Animatable(0f)
+//    }
+//
+//    LaunchedEffect(Unit) {
+//        while (true) {
+//            rotation.animateTo(
+//                360f,
+//                animationSpec = tween(2000, easing = LinearEasing)
+//            )
+//            rotation.snapTo(0f)
+//        }
+//    }
+//
+//    Box(
+//        Modifier.fillMaxSize(),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        Box(
+//            Modifier
+//                .size(80.dp)
+//                .graphicsLayer {
+//                    rotationZ = rotation.value
+//                }
+//                .background(Color.Red)
+//        )
+//    }
+//}
 
 @Composable
 fun Greeting() {

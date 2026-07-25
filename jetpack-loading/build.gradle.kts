@@ -1,12 +1,15 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("org.jetbrains.kotlin.android")
     id("maven-publish")
 }
 
 android {
     namespace = "com.example.jetpack_loading"
-    compileSdk = 37
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
@@ -39,7 +42,7 @@ android {
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.7.1")
-    implementation(platform("androidx.compose:compose-bom:2026.06.01"))
+    implementation (platform("androidx.compose:compose-bom:2025.06.01"))
     implementation("androidx.compose.material3:material3")
 }
 

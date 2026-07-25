@@ -1,75 +1,66 @@
 package com.spr.jetpack_loading.components.indicators
 
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import kotlinx.coroutines.delay
+import androidx.compose.ui.unit.dp
+import kotlin.math.abs
 
 @Composable
 fun BallBeatIndicator(
+    modifier: Modifier = Modifier,
     color: Color = Color.White,
     ballCount: Int = 3,
     ballDiameter: Float = 40f,
     spaceBetweenBalls: Float = 20f,
     animationDuration: Int = 350,
-    animationDelay: Long = 200,
-    minAlpha: Float = 0.7f,
+    staggerDelay: Long = 150,
+    minAlpha: Float = 0.4f,
     maxAlpha: Float = 1f
 ) {
+    val transition = rememberInfiniteTransition()
 
-    val alphas: List<Float> = (0 until ballCount).map { index ->
-        var animatedValue by remember { mutableStateOf(maxAlpha) }
-
-        LaunchedEffect(key1 = Unit) {
-
-            if (index == ballCount / 2)
-                delay(animationDelay)
-
-            animate(
-                initialValue = maxAlpha,
-                targetValue = minAlpha,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = animationDuration),
-                    repeatMode = RepeatMode.Reverse,
+    val alphas = (0 until ballCount).map { index ->
+        transition.animateFloat(
+            initialValue = minAlpha,
+            targetValue = maxAlpha,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = animationDuration,
+                    delayMillis = (abs(index - (ballCount - 1) / 2) * staggerDelay).toInt()
                 ),
-            ) { value, _ ->
-                animatedValue = value
-            }
-        }
-        animatedValue
+                repeatMode = RepeatMode.Reverse
+            ),
+        )
     }
 
+    val totalWidth = ballCount * ballDiameter + (ballCount - 1) * spaceBetweenBalls
 
-    Canvas(modifier = Modifier) {
-
-        val center = Offset(0f, 0f)
+    Canvas(
+        modifier = modifier.size(width = totalWidth.dp, height = ballDiameter.dp)
+    ) {
         val xOffset = ballDiameter + spaceBetweenBalls
-        val yOffset = center.y
+        val centerY = size.height / 2
+        val centerXOffset = (ballCount - 1) * xOffset / 2f
 
         for (index in 0 until ballCount) {
+            val currentAlpha = alphas[index].value
 
             drawCircle(
                 color = color,
-                radius = (ballDiameter / 2) * alphas[index],
-                alpha = alphas[index],
+                radius = ballDiameter / 2,
+                alpha = currentAlpha,
                 center = Offset(
-                    x = when {
-                        index < ballCount / 2 -> -(center.x + xOffset)
-                        index == ballCount / 2 -> center.x
-                        else -> center.x + xOffset
-                    },
-                    y = yOffset
+                    x = (index * xOffset) - centerXOffset,
+                    y = centerY
                 )
             )
         }
