@@ -1,64 +1,75 @@
 package com.spr.jetpack_loading.components.indicators
 
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import kotlinx.coroutines.delay
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun BallPulseSyncIndicator(
+    modifier: Modifier = Modifier,
     color: Color = Color.White,
-    delay: Long = 90L,
+    ballCount: Int = 3,
     spaceBetweenBalls: Float = 20f,
-    ballDiameter: Float = 40f,
-    animationDuration: Int = 350
+    ballDiameter: Float = 20f,
+    animationDuration: Int = 900,
+    amplitude: Float = 50f
 ) {
+    val transition = rememberInfiniteTransition(label = "BallPulseSync")
 
-    val ballCount = 3
+    val progress by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = (2f * Math.PI).toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = animationDuration,
+                easing = LinearEasing
+            ),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "Progress"
+    )
 
-    val positions = (1..ballCount).map { index ->
+    val totalWidth =
+        ballCount * ballDiameter + (ballCount - 1) * spaceBetweenBalls
 
-        var animatedValue: Float by remember { mutableStateOf(0f) }
+    val totalHeight =
+        ballDiameter + amplitude * 2f
 
-        LaunchedEffect(key1 = Unit) {
-            delay(delay + delay * index)
+    Canvas(
+        modifier = modifier.size(
+            width = totalWidth.dp,
+            height = totalHeight.dp
+        )
+    ) {
+        val centerY = size.height / 2f
+        val startX = ballDiameter / 2f
+        val step = ballDiameter + spaceBetweenBalls
 
-            animate(
-                initialValue = 0f, targetValue = 50f, animationSpec = infiniteRepeatable(
-                    animation = tween(durationMillis = animationDuration),
-                    repeatMode = RepeatMode.Reverse,
-                )
-            ) { value, _ -> animatedValue = value }
-        }
+        repeat(ballCount) { index ->
 
-        animatedValue
-    }
+            val phase =
+                progress - index * (Math.PI.toFloat() / 4f)
 
-    Canvas(modifier = Modifier) {
+            val offset =
+                ((kotlin.math.sin(phase) + 1f) / 2f) * amplitude
 
-        val center = Offset(0f, 0f)
-        val xOffset = ballDiameter + spaceBetweenBalls
-
-        for (index in 0 until ballCount) {
             drawCircle(
-                color = color, radius = ballDiameter / 2, center = Offset(
-                    x = when {
-                        index < ballCount / 2 -> -(center.x + xOffset)
-                        index == ballCount / 2 -> center.x
-                        else -> center.x + xOffset
-                    },
-                    y = center.y - positions[index]
+                color = color,
+                radius = ballDiameter / 2f,
+                center = Offset(
+                    x = startX + index * step,
+                    y = centerY - offset
                 )
             )
         }

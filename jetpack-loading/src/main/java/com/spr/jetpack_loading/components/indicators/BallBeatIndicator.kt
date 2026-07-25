@@ -23,7 +23,7 @@ fun BallBeatIndicator(
     modifier: Modifier = Modifier,
     color: Color = Color.White,
     ballCount: Int = 3,
-    ballDiameter: Float = 40f,
+    ballDiameter: Float = 20f,
     spaceBetweenBalls: Float = 20f,
     animationDuration: Int = 1200,
     minAlpha: Float = 0.2f,

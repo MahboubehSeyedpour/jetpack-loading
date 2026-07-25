@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -169,14 +171,15 @@ fun Greeting() {
         Row(
             modifier = Modifier
                 .height(rowHeight)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(horizontal = 36.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BallPulseSyncIndicator()
-            BallBeatIndicator()
-            LineScaleIndicator(punchType = PunchType.SYMMETRIC_PUNCH)
-            LineScaleIndicator(punchType = PunchType.PULSE_OUT_PUNCH)
+            BallPulseSyncIndicator(modifier = Modifier.weight(1f))
+            BallBeatIndicator(modifier = Modifier.weight(1f) )
+            LineScaleIndicator(modifier = Modifier.weight(1f), punchType = PunchType.SYMMETRIC_PUNCH)
+            LineScaleIndicator(modifier = Modifier.weight(1f), punchType = PunchType.PULSE_OUT_PUNCH)
         }
 
         // ------------------ Row #6 ----------------------
